@@ -79,9 +79,9 @@ public class SpigotDisplayCuboid extends AbstractDisplayObject implements IDispl
 
         // TODO: Check if this is a real barrier
         if (player == null) {
-            getWorld().spawnParticle(Particle.BLOCK_MARKER, temp, 1);
+            getWorld().spawnParticle(Particle.BLOCK_MARKER, temp, 1, 0, 0, 0, 0);
         } else {
-            player.spawnParticle(Particle.BLOCK_MARKER, temp, 1);
+            player.spawnParticle(Particle.BLOCK_MARKER, temp, 1, 0, 0, 0, 0);
         }
     }
 }

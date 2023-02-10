@@ -5,7 +5,7 @@
     <parent>
         <groupId>au.com.mineauz</groupId>
         <artifactId>MinigamesProject</artifactId>
-        <version>1.16-SNAPSHOT</version>
+        <version>1.19-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>Minigames</artifactId>
@@ -159,6 +159,7 @@
                             <include>org.bstats:*</include>
                             <include>io.papermc:paperlib</include>
                             <include>org.kitteh:paste-gg-api</include>
+                            <include>org.apache.commons:commons-lang3</include>
                         </includes>
                     </artifactSet>
                     <relocations>
@@ -175,6 +176,10 @@
                         <relocation>
                             <pattern>org.kitteh.pastegg</pattern>
                             <shadedPattern>au.com.mineauz.minigames.pastegg</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>org.apache.commons</pattern>
+                            <shadedPattern>au.com.mineauz.minigames.commons</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
