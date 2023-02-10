@@ -130,7 +130,6 @@ public class SwapBlockAction extends AbstractAction {
     public boolean displayMenu(MinigamePlayer player, Menu previous) {
         Menu m = new Menu(3, "Swap Block", player);
         m.addItem(new MenuItemPage("Back",MenuUtility.getBackMaterial(), previous), m.getSize() - 9);
-        final MinigamePlayer fply = player;
         m.addItem(new MenuItemBlockData("Match Block", Material.COBBLESTONE, new Callback<BlockData>() {
 
             @Override

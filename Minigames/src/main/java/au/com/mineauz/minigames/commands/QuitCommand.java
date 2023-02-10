@@ -73,7 +73,7 @@ public class QuitCommand implements ICommand {
             }
             if (player == null || player.hasPermission("minigame.quit.other")) {
                 List<Player> players = plugin.getServer().matchPlayer(args[0]);
-                MinigamePlayer ply = null;
+                MinigamePlayer ply;
                 if (args[0].equals("ALL")) {
                     if (args.length > 1) {
                         if (plugin.getMinigameManager().hasMinigame(args[1])) {

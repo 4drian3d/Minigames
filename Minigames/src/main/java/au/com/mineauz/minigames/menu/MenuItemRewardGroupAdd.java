@@ -12,7 +12,7 @@ import java.util.List;
 
 public class MenuItemRewardGroupAdd extends MenuItem {
 
-    private Rewards rewards;
+    private final Rewards rewards;
 
     public MenuItemRewardGroupAdd(String name, Material displayItem, Rewards rewards) {
         super(name, displayItem);

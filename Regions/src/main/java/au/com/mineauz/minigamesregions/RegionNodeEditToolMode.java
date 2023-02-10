@@ -161,7 +161,7 @@ public class RegionNodeEditToolMode implements ToolMode {
         
         menu.displayMenu(player);
         
-        player.sendMessage("Multiple regions/nodes selected: " + options.toString(), MinigameMessageType.INFO);
+        player.sendMessage("Multiple regions/nodes selected: " + options, MinigameMessageType.INFO);
     }
 
     @Override

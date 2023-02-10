@@ -52,7 +52,7 @@ public class InfectionMechanic extends GameMechanicBase {
             Team red = TeamsModule.getMinigameModule(minigame).getTeam(TeamColor.RED);
             Team blue = TeamsModule.getMinigameModule(minigame).getTeam(TeamColor.BLUE);
             Team team = ply.getTeam();
-            Double percent = ((Integer) InfectionModule.getMinigameModule(minigame).getInfectedPercent()).doubleValue() / 100d;
+            double percent = ((Integer) InfectionModule.getMinigameModule(minigame).getInfectedPercent()).doubleValue() / 100d;
             if (team == blue) {
                 if (red.getPlayers().size() < Math.ceil(players.size() * percent) && !red.isFull()) {
                     MultiplayerType.switchTeam(minigame, ply, red);

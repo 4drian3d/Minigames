@@ -11,7 +11,7 @@ import org.bukkit.Material;
 import java.util.List;
 
 public final class RewardSchemes {
-    private static BiMap<String, Class<? extends RewardScheme>> definedSchemes = HashBiMap.create();
+    private static final BiMap<String, Class<? extends RewardScheme>> definedSchemes = HashBiMap.create();
 
     static {
         addRewardScheme("standard", StandardRewardScheme.class);
@@ -62,7 +62,7 @@ public final class RewardSchemes {
     }
 
     private static Callback<String> transformCallback(final Callback<Class<? extends RewardScheme>> callback) {
-        return new Callback<String>() {
+        return new Callback<>() {
             @Override
             public String getValue() {
                 return definedSchemes.inverse().get(callback.getValue());

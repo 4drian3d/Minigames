@@ -7,11 +7,11 @@ import org.bukkit.entity.EntityType;
 import au.com.mineauz.minigames.objects.MinigamePlayer;
 
 public class EntityData {
-    private Entity ent;
-    private EntityType entType;
-    private Location entLocation;
-    private MinigamePlayer player;
-    private boolean created;
+    private final Entity ent;
+    private final EntityType entType;
+    private final Location entLocation;
+    private final MinigamePlayer player;
+    private final boolean created;
 
     public EntityData(Entity ent, MinigamePlayer modifier, boolean created) {
         this.ent = ent;

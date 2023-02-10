@@ -16,9 +16,9 @@ import java.util.*;
 import java.util.Map.Entry;
 
 public class PlayerLoadout {
-    private Map<Integer, ItemStack> itemSlot = new HashMap<>();
-    private List<PotionEffect> potions = new ArrayList<>();
-    private String loadoutName = "default";
+    private final Map<Integer, ItemStack> itemSlot = new HashMap<>();
+    private final List<PotionEffect> potions = new ArrayList<>();
+    private final String loadoutName;
     private boolean usePermission = false;
     private boolean fallDamage = true;
     private boolean hunger = false;
@@ -31,7 +31,7 @@ public class PlayerLoadout {
     private TeamColor team = null;
     private boolean displayInMenu = true;
 
-    private Map<Class<? extends LoadoutAddon>, Object> addonValues = Maps.newHashMap();
+    private final Map<Class<? extends LoadoutAddon>, Object> addonValues = Maps.newHashMap();
 
     public PlayerLoadout(String name) {
         loadoutName = name;
@@ -44,12 +44,14 @@ public class PlayerLoadout {
     }
 
     public Callback<String> getDisplayNameCallback() {
-        return new Callback<String>() {
+        return new Callback<>() {
 
             @Override
             public String getValue() {
                 return displayname;
-            }            @Override
+            }
+
+            @Override
             public void setValue(String value) {
                 displayname = value;
             }
@@ -75,12 +77,14 @@ public class PlayerLoadout {
     }
 
     public Callback<Boolean> getUsePermissionsCallback() {
-        return new Callback<Boolean>() {
+        return new Callback<>() {
 
             @Override
             public Boolean getValue() {
                 return usePermission;
-            }            @Override
+            }
+
+            @Override
             public void setValue(Boolean value) {
                 usePermission = value;
             }
@@ -199,12 +203,14 @@ public class PlayerLoadout {
     }
 
     public Callback<Boolean> getFallDamageCallback() {
-        return new Callback<Boolean>() {
+        return new Callback<>() {
 
             @Override
             public Boolean getValue() {
                 return fallDamage;
-            }            @Override
+            }
+
+            @Override
             public void setValue(Boolean value) {
                 fallDamage = value;
             }
@@ -222,12 +228,14 @@ public class PlayerLoadout {
     }
 
     public Callback<Boolean> getHungerCallback() {
-        return new Callback<Boolean>() {
+        return new Callback<>() {
 
             @Override
             public Boolean getValue() {
                 return hunger;
-            }            @Override
+            }
+
+            @Override
             public void setValue(Boolean value) {
                 hunger = value;
             }
@@ -245,12 +253,14 @@ public class PlayerLoadout {
     }
 
     public Callback<Integer> getLevelCallback() {
-        return new Callback<Integer>() {
+        return new Callback<>() {
 
             @Override
             public Integer getValue() {
                 return level;
-            }            @Override
+            }
+
+            @Override
             public void setValue(Integer value) {
                 if (level >= -1)
                     level = value;
@@ -277,12 +287,14 @@ public class PlayerLoadout {
     }
 
     public Callback<Boolean> getInventoryLockedCallback() {
-        return new Callback<Boolean>() {
+        return new Callback<>() {
 
             @Override
             public Boolean getValue() {
                 return isInventoryLocked();
-            }            @Override
+            }
+
+            @Override
             public void setValue(Boolean value) {
                 setInventoryLocked(value);
             }
@@ -300,12 +312,14 @@ public class PlayerLoadout {
     }
 
     public Callback<Boolean> getArmourLockedCallback() {
-        return new Callback<Boolean>() {
+        return new Callback<>() {
 
             @Override
             public Boolean getValue() {
                 return isArmourLocked();
-            }            @Override
+            }
+
+            @Override
             public void setValue(Boolean value) {
                 setArmourLocked(value);
             }
@@ -319,11 +333,13 @@ public class PlayerLoadout {
     }
 
     public Callback<Boolean> getAllowOffHandCallback() {
-        return new Callback<Boolean>() {
+        return new Callback<>() {
             @Override
             public Boolean getValue() {
                 return allowOffHand;
-            }            @Override
+            }
+
+            @Override
             public void setValue(Boolean value) {
                 allowOffHand = value;
             }
@@ -345,14 +361,16 @@ public class PlayerLoadout {
     }
 
     public Callback<String> getTeamColorCallback() {
-        return new Callback<String>() {
+        return new Callback<>() {
 
             @Override
             public String getValue() {
                 if (getTeamColor() == null)
                     return "None";
                 return MinigameUtils.capitalize(getTeamColor().toString());
-            }            @Override
+            }
+
+            @Override
             public void setValue(String value) {
                 setTeamColor(TeamColor.matchColor(value.toUpperCase()));
             }
@@ -366,12 +384,14 @@ public class PlayerLoadout {
     }
 
     public Callback<Boolean> getDisplayInMenuCallback() {
-        return new Callback<Boolean>() {
+        return new Callback<>() {
 
             @Override
             public Boolean getValue() {
                 return isDisplayedInMenu();
-            }            @Override
+            }
+
+            @Override
             public void setValue(Boolean value) {
                 setDisplayInMenu(value);
             }

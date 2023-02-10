@@ -11,8 +11,8 @@ import java.util.List;
  */
 public class StartMinigameEvent extends AbstractMinigameEvent {
 
-    private boolean willTeleport;
-    private List<MinigamePlayer> players;
+    private final boolean willTeleport;
+    private final List<MinigamePlayer> players;
 
     public StartMinigameEvent(List<MinigamePlayer> players, Minigame minigame, boolean willTeleport) {
         super(minigame);

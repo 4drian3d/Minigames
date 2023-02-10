@@ -192,12 +192,12 @@ public class MinigameManager {
     }
 
     public Location minigameLocations(final String minigame, final String type, final Configuration save) {
-        final Double locx = (Double) save.get(minigame + '.' + type + ".x");
-        final Double locy = (Double) save.get(minigame + '.' + type + ".y");
-        final Double locz = (Double) save.get(minigame + '.' + type + ".z");
-        final Float yaw = new Float(save.get(minigame + '.' + type + ".yaw",0F).toString());
-        final Float pitch = new Float(save.get(minigame + '.' + type + ".pitch",0F).toString());
-        final String world = (String) save.get(minigame + '.' + type + ".world");
+        final double locx = save.getDouble(minigame + '.' + type + ".x");
+        final double locy = save.getDouble(minigame + '.' + type + ".y");
+        final double locz = save.getDouble(minigame + '.' + type + ".z");
+        final float yaw = Float.parseFloat(save.get(minigame + '.' + type + ".yaw",0F).toString());
+        final float pitch = Float.parseFloat(save.get(minigame + '.' + type + ".pitch",0F).toString());
+        final String world = save.getString(minigame + '.' + type + ".world");
         return  new Location(PLUGIN.getServer().getWorld(world), locx, locy, locz, yaw, pitch);
     }
 
@@ -292,15 +292,10 @@ public class MinigameManager {
         if (type == null) {
             type = MinigameMessageType.INFO;
         }
-        switch (type) {
-            case ERROR:
-                finalMessage = ChatColor.RED + "[Minigames] " + ChatColor.WHITE;
-                break;
-            case INFO:
-            default:
-                finalMessage = ChatColor.AQUA + "[Minigames] " + ChatColor.WHITE;
-                break;
-        }
+        finalMessage = switch (type) {
+            case ERROR -> ChatColor.RED + "[Minigames] " + ChatColor.WHITE;
+            default -> ChatColor.AQUA + "[Minigames] " + ChatColor.WHITE;
+        };
         finalMessage += message;
         final List<MinigamePlayer> sendto = new ArrayList<>();
         Collections.copy(minigame.getPlayers(), sendto);
@@ -444,7 +439,7 @@ public class MinigameManager {
         } else if (!minigame.getMechanic().validTypes().contains(minigame.getType())) {
             player.sendMessage(MinigameUtils.getLang("minigame.error.invalidType"), MinigameMessageType.ERROR);
             return false;
-        } else if (minigame.getStartLocations().size() <= 0 ||
+        } else if (minigame.getStartLocations().size() == 0 ||
                 minigame.isTeamGame() && !TeamsModule.getMinigameModule(minigame).hasTeamStartLocations()) {
             player.sendMessage(MinigameUtils.getLang("minigame.error.noStart"), MinigameMessageType.ERROR);
             return false;

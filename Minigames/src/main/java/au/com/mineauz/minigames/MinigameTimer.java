@@ -12,11 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MinigameTimer {
-    private static Minigames plugin = Minigames.getPlugin();
-    private int time = 0;
-    private int otime = 0;
-    private Minigame minigame;
-    private List<Integer> timeMsg = new ArrayList<>();
+    private static final Minigames plugin = Minigames.getPlugin();
+    private int time;
+    private final int otime;
+    private final Minigame minigame;
+    private final List<Integer> timeMsg = new ArrayList<>();
     private int taskID = -1;
     private boolean broadcastTime = true;
 
@@ -48,7 +48,7 @@ public class MinigameTimer {
         time -= 1;
         if (minigame.isUsingXPBarTimer()) {
             float timeper = ((Integer) time).floatValue() / ((Integer) otime).floatValue();
-            int level = 0;
+            int level;
             if (time / 60 > 0)
                 level = time / 60;
             else

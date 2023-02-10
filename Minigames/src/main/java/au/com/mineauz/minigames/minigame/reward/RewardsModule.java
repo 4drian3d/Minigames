@@ -106,7 +106,7 @@ public class RewardsModule extends MinigameModule {
         final Menu submenu = new Menu(6, "Reward Settings", parent.getViewer());
         scheme.addMenuItems(submenu);
 
-        submenu.addItem(RewardSchemes.newMenuItem("Reward Scheme", Material.PAPER, new Callback<Class<? extends RewardScheme>>() {
+        submenu.addItem(RewardSchemes.newMenuItem("Reward Scheme", Material.PAPER, new Callback<>() {
             @Override
             public Class<? extends RewardScheme> getValue() {
                 return scheme.getClass();

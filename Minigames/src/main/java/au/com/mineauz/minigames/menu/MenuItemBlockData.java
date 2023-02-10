@@ -2,7 +2,7 @@ package au.com.mineauz.minigames.menu;
 
 import au.com.mineauz.minigames.MinigameMessageType;
 import au.com.mineauz.minigames.objects.MinigamePlayer;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -61,12 +61,6 @@ public class MenuItemBlockData extends MenuItem {
     }
 
     @Override
-    public ItemStack onClick() {
-
-        return super.onClick();
-    }
-
-    @Override
     public ItemStack onClickWithItem(ItemStack item) {
         try {
             BlockData data = item.getType().createBlockData();
@@ -100,21 +94,6 @@ public class MenuItemBlockData extends MenuItem {
         getContainer().displayMenu(getContainer().getViewer());
         getContainer().getViewer().sendMessage(err, MinigameMessageType.ERROR);
 
-    }
-
-    @Override
-    public ItemStack onRightClick() {
-        return super.onRightClick();
-    }
-
-    @Override
-    public ItemStack onShiftClick() {
-        return super.onShiftClick();
-    }
-
-    @Override
-    public ItemStack onShiftRightClick() {
-        return super.onShiftRightClick();
     }
 
     @Override

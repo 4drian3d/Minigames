@@ -7,7 +7,7 @@ import au.com.mineauz.minigames.menu.MenuItem;
 
 public abstract class RewardType {
     private RewardRarity rarity = RewardRarity.NORMAL;
-    private Rewards rewards;
+    private final Rewards rewards;
 
     public RewardType(Rewards rewards) {
         this.rewards = rewards;

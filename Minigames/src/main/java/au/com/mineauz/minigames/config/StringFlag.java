@@ -33,12 +33,14 @@ public class StringFlag extends Flag<String> {
 
     @Override
     public MenuItem getMenuItem(String name, Material displayItem) {
-        return new MenuItemString(name, displayItem, new Callback<String>() {
+        return new MenuItemString(name, displayItem, new Callback<>() {
 
             @Override
             public String getValue() {
                 return getFlag();
-            }            @Override
+            }
+
+            @Override
             public void setValue(String value) {
                 setFlag(value);
             }
@@ -49,12 +51,14 @@ public class StringFlag extends Flag<String> {
 
     @Override
     public MenuItem getMenuItem(String name, Material displayItem, List<String> description) {
-        return new MenuItemString(name, description, displayItem, new Callback<String>() {
+        return new MenuItemString(name, description, displayItem, new Callback<>() {
 
             @Override
             public String getValue() {
                 return getFlag();
-            }            @Override
+            }
+
+            @Override
             public void setValue(String value) {
                 setFlag(value);
             }

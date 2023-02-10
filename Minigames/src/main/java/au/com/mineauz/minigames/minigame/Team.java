@@ -11,7 +11,6 @@ import au.com.mineauz.minigames.script.ScriptObject;
 import au.com.mineauz.minigames.script.ScriptReference;
 import au.com.mineauz.minigames.script.ScriptValue;
 import com.google.common.collect.ImmutableSet;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.scoreboard.Objective;
@@ -25,7 +24,7 @@ import java.util.List;
 import java.util.Set;
 
 public class Team implements ScriptObject {
-    private String displayName = null;
+    private String displayName;
     private TeamColor color;
     private final IntegerFlag maxPlayers = new IntegerFlag(0, "maxPlayers");
     private final List<Location> startLocations = new ArrayList<>();
@@ -40,7 +39,7 @@ public class Team implements ScriptObject {
     private int score = 0;
     private final Minigame mgm;
 
-    private String scoreboardName;
+    private final String scoreboardName;
 
     /**
      * Creates a team for the use in a specific Minigame
@@ -344,12 +343,14 @@ public class Team implements ScriptObject {
     }
 
     public Callback<String> getNameTagVisibilityCallback() {
-        return new Callback<String>() {
+        return new Callback<>() {
 
             @Override
             public String getValue() {
                 return getNameTagVisibility().toString();
-            }            @Override
+            }
+
+            @Override
             public void setValue(String value) {
                 setNameTagVisibility(OptionStatus.valueOf(value));
             }
@@ -359,12 +360,14 @@ public class Team implements ScriptObject {
     }
 
     public Callback<Boolean> getAutoBalanceCallBack() {
-        return new Callback<Boolean>() {
+        return new Callback<>() {
 
             @Override
             public Boolean getValue() {
                 return getAutoBalanceTeam();
-            }            @Override
+            }
+
+            @Override
             public void setValue(Boolean value) {
                 setAutoBalance(value);
             }

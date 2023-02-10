@@ -25,8 +25,8 @@ public class BackendManager {
     private boolean debug;
 
     private Backend backend;
-    private ListeningExecutorService executorService;
-    private Executor bukkitThreadExecutor;
+    private final ListeningExecutorService executorService;
+    private final Executor bukkitThreadExecutor;
 
     public BackendManager(Logger logger) {
         this.logger = logger;
@@ -41,14 +41,11 @@ public class BackendManager {
         String serverType = Bukkit.getServer().getName();
         if (serverType.equals("ServerMock"))
             return new TestBackEnd();
-        switch (type) {
-            case "sqlite":
-                return new SQLiteBackend(logger);
-            case "mysql":
-                return new MySQLBackend(logger);
-            default:
-                return null;
-        }
+        return switch (type) {
+            case "sqlite" -> new SQLiteBackend(logger);
+            case "mysql" -> new MySQLBackend(logger);
+            default -> null;
+        };
     }
 
     /**
@@ -171,10 +168,9 @@ public class BackendManager {
      * Queues a task to save the stats to the backend. The stats will be saved asynchronously
      *
      * @param stats The stats to be saved
-     * @return A ListenableFuture that returns the inputed stats for chaining.
      */
-    public ListenableFuture<StoredGameStats> saveStats(final StoredGameStats stats) {
-        return executorService.submit(() -> {
+    public void saveStats(final StoredGameStats stats) {
+        executorService.submit(() -> {
             backend.saveGameStatus(stats);
             return stats;
         });
@@ -196,14 +192,13 @@ public class BackendManager {
      *
      * @param minigame The minigame to save settings for
      * @param settings The collection of settings to save
-     * @return A ListenableFuture to get the status of the save
      */
-    public ListenableFuture<Void> saveStatSettings(final Minigame minigame, final Collection<StatSettings> settings) {
+    public void saveStatSettings(final Minigame minigame, final Collection<StatSettings> settings) {
         if (backend instanceof TestBackEnd) {
             backend.saveStatSettings(minigame, settings);
-            return null;
+            return;
         }
-        return executorService.submit(() -> {
+        executorService.submit(() -> {
             backend.saveStatSettings(minigame, settings);
             return null;
         });

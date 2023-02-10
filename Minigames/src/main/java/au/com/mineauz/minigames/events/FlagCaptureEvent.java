@@ -6,8 +6,8 @@ import au.com.mineauz.minigames.minigame.Minigame;
 
 public class FlagCaptureEvent extends AbstractMinigameEvent {
 
-    private MinigamePlayer player;
-    private CTFFlag flag;
+    private final MinigamePlayer player;
+    private final CTFFlag flag;
     private boolean displayMessage = true;
 
     public FlagCaptureEvent(Minigame minigame, MinigamePlayer player, CTFFlag flag) {

@@ -12,8 +12,8 @@ import java.util.List;
 
 public class Rewards {
 
-    private List<RewardType> items = new ArrayList<>();
-    private List<RewardGroup> groups = new ArrayList<>();
+    private final List<RewardType> items = new ArrayList<>();
+    private final List<RewardGroup> groups = new ArrayList<>();
 
     public boolean isEmpty() {
         return items.isEmpty() && groups.isEmpty();
@@ -21,7 +21,7 @@ public class Rewards {
 
     public List<RewardType> getReward() {
         double rand = Math.random();
-        RewardRarity rarity = null;
+        RewardRarity rarity;
         List<Object> itemsCopy = new ArrayList<>();
         itemsCopy.addAll(items);
         itemsCopy.addAll(groups);
@@ -47,8 +47,7 @@ public class Rewards {
 
             while (item == null && group == null) {
                 for (Object ritem : itemsCopy) {
-                    if (ritem instanceof RewardType) {
-                        RewardType ri = (RewardType) ritem;
+                    if (ritem instanceof RewardType ri) {
                         if (ri.getRarity() == rarity) {
                             item = ri;
                             break;

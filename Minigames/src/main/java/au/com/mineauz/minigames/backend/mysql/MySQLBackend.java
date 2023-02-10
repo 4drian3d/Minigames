@@ -21,14 +21,13 @@ public class MySQLBackend extends Backend {
     private final Logger logger;
     private ConnectionPool pool;
     private String database;
-    private boolean debug = false;
     private StatementKey insertMinigame;
     private StatementKey insertPlayer;
     private StatementKey loadStatSettings;
     private StatementKey saveStatSettings;
 
-    private MySQLStatLoader loader;
-    private MySQLStatSaver saver;
+    private final MySQLStatLoader loader;
+    private final MySQLStatSaver saver;
 
     public MySQLBackend(Logger logger) {
         this.logger = logger;
@@ -38,7 +37,6 @@ public class MySQLBackend extends Backend {
     }
 
     public boolean initialize(ConfigurationSection config, boolean debug) {
-        this.debug = debug;
         try {
             Class.forName("com.mysql.jdbc.Driver");
 
@@ -57,7 +55,7 @@ public class MySQLBackend extends Backend {
                     props.put(entry.getKey(), entry.getValue().toString());
                 }
             }
-            if (debug) logger.info("Properties: " + props.toString());
+            if (debug) logger.info("Properties: " + props);
             pool = new ConnectionPool(url, props);
 
             createStatements();

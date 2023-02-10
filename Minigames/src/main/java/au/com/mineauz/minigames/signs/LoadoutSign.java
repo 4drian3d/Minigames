@@ -14,7 +14,7 @@ import org.bukkit.event.block.SignChangeEvent;
 
 public class LoadoutSign implements MinigameSign {
 
-    private static Minigames plugin = Minigames.getPlugin();
+    private static final Minigames plugin = Minigames.getPlugin();
 
     @Override
     public String getName() {
@@ -59,9 +59,7 @@ public class LoadoutSign implements MinigameSign {
             }
 
             if (sign.getLine(2).equals(ChatColor.GREEN + "Menu")) {
-                boolean nores = true;
-                if (sign.getLine(3).equalsIgnoreCase("respawn"))
-                    nores = false;
+                boolean nores = !sign.getLine(3).equalsIgnoreCase("respawn");
                 LoadoutModule.getMinigameModule(mgm).displaySelectionMenu(player, nores);
             } else if (loadout.hasLoadout(sign.getLine(2))) {
                 if (!loadout.getLoadout(sign.getLine(2)).getUsePermissions() || player.getPlayer().hasPermission("minigame.loadout." + sign.getLine(2).toLowerCase())) {

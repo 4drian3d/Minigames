@@ -12,8 +12,8 @@ import java.util.concurrent.TimeUnit;
 import com.google.common.collect.Lists;
 
 public class ConnectionPool {
-    private String connectionString;
-    private Properties props;
+    private final String connectionString;
+    private final Properties props;
 
 
     private long maxIdleTime;
@@ -34,7 +34,7 @@ public class ConnectionPool {
     public ConnectionPool(String connectionString, Properties properties) {
         this.connectionString = connectionString;
         props = properties;
-        connections = Collections.synchronizedList(Lists.<ConnectionHandler>newArrayList());
+        connections = Collections.synchronizedList(Lists.newArrayList());
         maxIdleTime = TimeUnit.SECONDS.toMillis(30);
     }
 

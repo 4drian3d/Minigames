@@ -102,10 +102,8 @@ public abstract class HierarchyRewardScheme<T extends Comparable<T>> implements 
 
         // Calculate rewards
         switch (comparisonType.getFlag()) {
-            case Equal:
-                reward = rewards.get(value);
-                break;
-            case Lesser:
+            case Equal -> reward = rewards.get(value);
+            case Lesser -> {
                 reward = null;
                 for (Entry<T, Rewards> entry : rewards.entrySet()) {
                     if (value.compareTo(entry.getKey()) < 0) {
@@ -113,8 +111,8 @@ public abstract class HierarchyRewardScheme<T extends Comparable<T>> implements 
                         break;
                     }
                 }
-                break;
-            case Greater:
+            }
+            case Greater -> {
                 reward = null;
                 for (Entry<T, Rewards> entry : rewards.descendingMap().entrySet()) {
                     if (value.compareTo(entry.getKey()) > 0) {
@@ -122,9 +120,8 @@ public abstract class HierarchyRewardScheme<T extends Comparable<T>> implements 
                         break;
                     }
                 }
-                break;
-            default:
-                throw new AssertionError();
+            }
+            default -> throw new AssertionError();
         }
 
         // Apply reward
@@ -184,7 +181,7 @@ public abstract class HierarchyRewardScheme<T extends Comparable<T>> implements 
     }
 
     private Callback<String> getConfigurationTypeCallback() {
-        return new Callback<String>() {
+        return new Callback<>() {
             @Override
             public String getValue() {
                 return comparisonType.getFlag().name();

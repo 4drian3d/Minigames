@@ -14,8 +14,8 @@ import org.bukkit.configuration.ConfigurationSection;
  * Created for the AddstarMC Project. Created by Narimm on 7/02/2019.
  */
 public class TestBackEnd extends Backend {
-    private List<StoredGameStats> playerGameStats = new ArrayList<>();
-    private Map<Minigame, Collection<StatSettings>> gameSettings = new HashMap<>();
+    private final List<StoredGameStats> playerGameStats = new ArrayList<>();
+    private final Map<Minigame, Collection<StatSettings>> gameSettings = new HashMap<>();
 
 
     /**
@@ -54,9 +54,6 @@ public class TestBackEnd extends Backend {
     @Override
     public void saveGameStatus(StoredGameStats stats) {
         playerGameStats.add(stats);
-        for (StoredGameStats stat : playerGameStats) {
-
-        }
     }
 
     /**
@@ -77,12 +74,8 @@ public class TestBackEnd extends Backend {
             }
         }
         switch (order) {
-            case DESCENDING:
-                result.sort(Comparator.comparingLong(StoredStat::getValue).reversed());
-                break;
-            case ASCENDING:
-            default:
-                result.sort(Comparator.comparingLong(StoredStat::getValue));
+            case DESCENDING -> result.sort(Comparator.comparingLong(StoredStat::getValue).reversed());
+            default -> result.sort(Comparator.comparingLong(StoredStat::getValue));
         }
         return result;
     }
@@ -178,7 +171,7 @@ public class TestBackEnd extends Backend {
      * Performs a conversion from a previous format
      *
      * @param notifier A notifier for progress updates
-     * @returns True if the conversion succeeded
+     * @return True if the conversion succeeded
      */
     @Override
     public boolean doConversion(ExportNotifier notifier) {

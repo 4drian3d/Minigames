@@ -11,7 +11,7 @@ import au.com.mineauz.minigames.minigame.Minigame;
 
 public class MenuItemAddFlag extends MenuItem {
 
-    private Minigame mgm;
+    private final Minigame mgm;
 
     public MenuItemAddFlag(String name, Material displayItem, Minigame mgm) {
         super(name, displayItem);

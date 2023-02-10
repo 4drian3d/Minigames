@@ -16,7 +16,7 @@ import java.util.List;
 
 public class MenuItemAddTeam extends MenuItem {
 
-    private TeamsModule tm;
+    private final TeamsModule tm;
 
     public MenuItemAddTeam(String name, Minigame minigame) {
         super(name, MenuUtility.getCreateMaterial());

@@ -9,7 +9,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.ListenableFuture;
-import org.apache.commons.lang.WordUtils;
+import org.apache.commons.lang3.text.WordUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -131,24 +131,13 @@ public class ScoreboardDisplay {
 
     private List<Block> getSignBlocks(boolean onlySigns) {
         // Find the horizontal direction (going across the the signs, left to right)
-        BlockFace horizontal;
-
-        switch (facing) {
-            case NORTH:
-                horizontal = BlockFace.WEST;
-                break;
-            case SOUTH:
-                horizontal = BlockFace.EAST;
-                break;
-            case WEST:
-                horizontal = BlockFace.SOUTH;
-                break;
-            case EAST:
-                horizontal = BlockFace.NORTH;
-                break;
-            default:
-                throw new AssertionError("Invalid facing " + facing);
-        }
+        BlockFace horizontal = switch (facing) {
+            case NORTH -> BlockFace.WEST;
+            case SOUTH -> BlockFace.EAST;
+            case WEST -> BlockFace.SOUTH;
+            case EAST -> BlockFace.NORTH;
+            default -> throw new AssertionError("Invalid facing " + facing);
+        };
 
         List<Block> blocks = Lists.newArrayListWithCapacity(width * height);
 
@@ -227,7 +216,7 @@ public class ScoreboardDisplay {
         fieldChoice.setDescription(Collections.singletonList(ChatColor.GREEN + field.getTitle()));
 
         statisticChoice.setClick(object -> {
-            Menu childMenu = MinigameStats.createStatSelectMenu(setupMenu, new Callback<MinigameStat>() {
+            Menu childMenu = MinigameStats.createStatSelectMenu(setupMenu, new Callback<>() {
                 @Override
                 public MinigameStat getValue() {
                     throw new UnsupportedOperationException();
@@ -267,7 +256,7 @@ public class ScoreboardDisplay {
 
         fieldChoice.setClick(object -> {
             StatSettings settings1 = minigame.getSettings(stat);
-            Menu childMenu = MinigameStats.createStatFieldSelectMenu(setupMenu, settings1.getFormat(), new Callback<StatValueField>() {
+            Menu childMenu = MinigameStats.createStatFieldSelectMenu(setupMenu, settings1.getFormat(), new Callback<>() {
                 @Override
                 public StatValueField getValue() {
                     throw new UnsupportedOperationException();
@@ -291,12 +280,14 @@ public class ScoreboardDisplay {
         for (ScoreboardOrder o : ScoreboardOrder.values()) {
             sbotypes.add(o.toString().toLowerCase());
         }
-        setupMenu.addItem(new MenuItemList("Scoreboard Order", Material.ENDER_PEARL, new Callback<String>() {
+        setupMenu.addItem(new MenuItemList("Scoreboard Order", Material.ENDER_PEARL, new Callback<>() {
 
             @Override
             public String getValue() {
                 return order.toString().toLowerCase();
-            }            @Override
+            }
+
+            @Override
             public void setValue(String value) {
                 order = ScoreboardOrder.valueOf(value.toUpperCase());
             }
@@ -354,8 +345,7 @@ public class ScoreboardDisplay {
         Block root = rootBlock.getBlock();
         if (root.getType() == Material.OAK_WALL_SIGN || root.getType() == Material.OAK_SIGN) {
             BlockState state = root.getState();
-            if (state instanceof Sign) {
-                Sign sign = (Sign) state;
+            if (state instanceof Sign sign) {
 
                 sign.setLine(0, ChatColor.BLUE + minigame.getName(true));
                 sign.setLine(1, ChatColor.GREEN + settings.getDisplayName());
@@ -366,10 +356,10 @@ public class ScoreboardDisplay {
                 sign.setMetadata("MGScoreboardSign", new FixedMetadataValue(Minigames.getPlugin(), true));
                 sign.setMetadata("Minigame", new FixedMetadataValue(Minigames.getPlugin(), minigame));
             } else {
-                Minigames.getPlugin().getLogger().warning("No Root Sign Block at: " + root.getLocation().toString());
+                Minigames.getPlugin().getLogger().warning("No Root Sign Block at: " + root.getLocation());
             }
         } else {
-            Minigames.getPlugin().getLogger().warning("No Root Sign Block at: " + root.getLocation().toString());
+            Minigames.getPlugin().getLogger().warning("No Root Sign Block at: " + root.getLocation());
         }
     }
 
@@ -381,7 +371,7 @@ public class ScoreboardDisplay {
 
     // The update callback to be provided to the future. MUST be executed on the bukkit server thread
     private FutureCallback<List<StoredStat>> getUpdateCallback() {
-        return new FutureCallback<List<StoredStat>>() {
+        return new FutureCallback<>() {
             @Override
             public void onSuccess(List<StoredStat> result) {
                 stats = result;

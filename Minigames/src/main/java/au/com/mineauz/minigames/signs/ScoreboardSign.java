@@ -13,7 +13,7 @@ import org.bukkit.material.Directional;
 import org.bukkit.metadata.FixedMetadataValue;
 
 public class ScoreboardSign implements MinigameSign {
-    private Minigames plugin = Minigames.getPlugin();
+    private final Minigames plugin = Minigames.getPlugin();
 
     @Override
     public String getName() {

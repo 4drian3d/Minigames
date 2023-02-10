@@ -14,7 +14,7 @@ public class ConnectionHandler {
     private boolean inUse;
     private long openTime;
     private long closeTime;
-    private Map<StatementKey, PreparedStatement> preparedStatements;
+    private final Map<StatementKey, PreparedStatement> preparedStatements;
 
     public ConnectionHandler(Connection connection) {
         this.connection = connection;

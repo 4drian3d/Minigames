@@ -17,8 +17,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class SingleplayerType extends MinigameTypeBase {
-    private static Minigames plugin = Minigames.getPlugin();
-    private MinigamePlayerManager pdata = plugin.getPlayerManager();
+    private static final Minigames plugin = Minigames.getPlugin();
+    private final MinigamePlayerManager pdata = plugin.getPlayerManager();
 
     public SingleplayerType() {
         setType(MinigameType.SINGLEPLAYER);

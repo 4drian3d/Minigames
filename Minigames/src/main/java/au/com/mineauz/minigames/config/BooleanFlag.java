@@ -33,12 +33,14 @@ public class BooleanFlag extends Flag<Boolean> {
 
     @Override
     public MenuItem getMenuItem(String name, Material displayItem) {
-        return new MenuItemBoolean(name, displayItem, new Callback<Boolean>() {
+        return new MenuItemBoolean(name, displayItem, new Callback<>() {
 
             @Override
             public Boolean getValue() {
                 return getFlag();
-            }            @Override
+            }
+
+            @Override
             public void setValue(Boolean value) {
                 setFlag(value);
             }
@@ -49,12 +51,14 @@ public class BooleanFlag extends Flag<Boolean> {
 
     @Override
     public MenuItem getMenuItem(String name, Material displayItem, List<String> description) {
-        return new MenuItemBoolean(name, description, displayItem, new Callback<Boolean>() {
+        return new MenuItemBoolean(name, description, displayItem, new Callback<>() {
 
             @Override
             public Boolean getValue() {
                 return getFlag();
-            }            @Override
+            }
+
+            @Override
             public void setValue(Boolean value) {
                 setFlag(value);
             }

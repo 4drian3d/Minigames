@@ -48,7 +48,7 @@ public class TeamPlayerCountCondition extends ConditionInterface {
     @Override
     public boolean checkRegionCondition(MinigamePlayer player, Region region) {
         if(player.getTeam() != null) {
-            Integer count = 0;
+            int count = 0;
             Team t = player.getTeam();
             for (MinigamePlayer user : region.getPlayers()) {
                 if (user.getTeam().equals(t)) {

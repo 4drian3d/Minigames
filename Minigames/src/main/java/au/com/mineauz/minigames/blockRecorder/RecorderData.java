@@ -10,8 +10,6 @@ import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import io.papermc.lib.PaperLib;
-import io.papermc.lib.features.blockstatesnapshot.BlockStateSnapshotResult;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
@@ -47,7 +45,7 @@ import java.util.*;
 
 public class RecorderData implements Listener {
     private static Minigames plugin;
-    private static List<Material> physBlocks = new ArrayList<>();
+    private static final List<Material> physBlocks = new ArrayList<>();
 
     static {
         physBlocks.add(Material.TORCH);
@@ -165,7 +163,7 @@ public class RecorderData implements Listener {
     private boolean hasCreatedRegenBlocks = false;
     private Map<String, MgBlockData> blockdata;
     private Map<Integer, EntityData> entdata;
-    private List<Material> wbBlocks = new ArrayList<>();
+    private final List<Material> wbBlocks = new ArrayList<>();
 
     public RecorderData(Minigame minigame) {
         plugin = Minigames.getPlugin();
@@ -186,7 +184,7 @@ public class RecorderData implements Listener {
     }
 
     public Callback<Boolean> getWhitelistModeCallback() {
-        return new Callback<Boolean>() {
+        return new Callback<>() {
 
             @Override
             public Boolean getValue() {
@@ -229,16 +227,15 @@ public class RecorderData implements Listener {
     }
 
     public MgBlockData addBlock(Block block, MinigamePlayer modifier) {
-        BlockStateSnapshotResult blockstate = PaperLib.getBlockState(block, true);
-        return addBlock(blockstate.getState(), modifier);
+        BlockState blockstate = block.getState(true);
+        return addBlock(blockstate, modifier);
     }
 
     public MgBlockData addBlock(BlockState block, MinigamePlayer modifier) {
         MgBlockData bdata = new MgBlockData(block, modifier);
         String sloc = bdata.getLocation().getBlockX() + ":" + bdata.getLocation().getBlockY() + ":" + bdata.getLocation().getBlockZ();
         if (!blockdata.containsKey(sloc)) {
-            if (block instanceof InventoryHolder) {
-                InventoryHolder inv = (InventoryHolder) block;
+            if (block instanceof InventoryHolder inv) {
                 if (inv instanceof DoubleChest) {
                     Location left = ((DoubleChest) inv).getLeftSide().getInventory().getLocation().clone();
                     Location right = ((DoubleChest) inv).getRightSide().getInventory().getLocation().clone();
@@ -336,19 +333,16 @@ public class RecorderData implements Listener {
             MgBlockData data = it.next();
             boolean gravity = false;
             boolean attachable = false;
-            boolean inventoryholder = false;
             if (modifier == null || modifier.equals(data.getModifier())) {
                 it.remove();
 
                 // Clear inventories
-                if (data.getLocation().getBlock().getState() instanceof InventoryHolder) {
-                    InventoryHolder block = (InventoryHolder) data.getLocation().getBlock().getState();
+                if (data.getLocation().getBlock().getState() instanceof InventoryHolder block) {
                     block.getInventory().clear();
                 }
                 if (data.getBukkitBlockData().getMaterial().hasGravity()) gravity = true;
                 if (physBlocks.contains(data.getBlockState().getType()) || data.getBlockState().getBlockData() instanceof
                         Attachable) attachable = true;
-                if (data.getItems() != null) inventoryholder = true;
                 if (attachable) {
                     attachableBlocks.add(data);
                 } else if (gravity) {
@@ -370,15 +364,8 @@ public class RecorderData implements Listener {
     }
 
     private void customblockComparator(List<MgBlockData> baseBlocks) {
-        baseBlocks.sort((o1, o2) -> {
-            int comp = Integer.compare(o1.getBlockState().getChunk().getX(), o2.getBlockState().getChunk().getX());
-            if (comp != 0)
-                return comp;
-            comp = Integer.compare(o1.getBlockState().getChunk().getZ(), o2.getBlockState().getChunk().getZ());
-            if (comp != 0)
-                return comp;
-            return Integer.compare(o1.getBlockState().getY(), o2.getBlockState().getY());
-        });
+        baseBlocks.sort(Comparator.comparingInt(
+                (MgBlockData o) -> o.getBlockState().getChunk().getX()).thenComparingInt(o -> o.getBlockState().getChunk().getZ()).thenComparingInt(o -> o.getBlockState().getY()));
     }
 
     public void restoreEntities(MinigamePlayer player) {
@@ -443,17 +430,11 @@ public class RecorderData implements Listener {
     }
 
     public double getRegenMinX() {
-        if (minigame.getRegenArea1().getX() > minigame.getRegenArea2().getX()) {
-            return minigame.getRegenArea2().getX();
-        }
-        return minigame.getRegenArea1().getX();
+        return Math.min(minigame.getRegenArea1().getX(), minigame.getRegenArea2().getX());
     }
 
     public double getRegenMaxX() {
-        if (minigame.getRegenArea1().getX() < minigame.getRegenArea2().getX()) {
-            return minigame.getRegenArea2().getX();
-        }
-        return minigame.getRegenArea1().getX();
+        return Math.max(minigame.getRegenArea1().getX(), minigame.getRegenArea2().getX());
     }
 
     public double getRegenMinY() {
@@ -647,8 +628,7 @@ public class RecorderData implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     private void animalDeath(EntityDamageByEntityEvent event) {
-        if (event.getEntity() instanceof Animals) {
-            Animals animal = (Animals) event.getEntity();
+        if (event.getEntity() instanceof Animals animal) {
             if (hasRegenArea() && minigame.hasPlayers() && !(event.getDamager() instanceof Player)) {
                 Location ent = event.getEntity().getLocation();
                 if (blockInRegenArea(ent)) {
@@ -732,14 +712,13 @@ public class RecorderData implements Listener {
     private void cartkMoveItem(InventoryMoveItemEvent event) {
         if (!hasRegenArea() || !minigame.hasPlayers()) return;
 
-        Location loc = null;
+        Location loc;
         if (event.getInitiator().getHolder() instanceof HopperMinecart) {
             loc = ((HopperMinecart) event.getInitiator().getHolder()).getLocation().clone();
             if (blockInRegenArea(loc))
                 addEntity((Entity) event.getInitiator().getHolder(), null, false);
         }
 
-        loc = null;
         if (event.getDestination().getHolder() instanceof HopperMinecart) {
             loc = ((HopperMinecart) event.getDestination().getHolder()).getLocation().clone();
             if (blockInRegenArea(loc))

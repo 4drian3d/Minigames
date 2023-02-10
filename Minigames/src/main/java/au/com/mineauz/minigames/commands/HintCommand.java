@@ -80,17 +80,19 @@ public class HintCommand implements ICommand {
                     mgs.add(mg);
                 }
             }
-            if (!mgs.isEmpty()) {
+            if (mgs.isEmpty()) {
+                player.sendInfoMessage(ChatColor.LIGHT_PURPLE + "There are no Treasure Hunt minigames currently running.");
+            } else {
                 if (mgs.size() > 1) {
                     player.sendInfoMessage(ChatColor.LIGHT_PURPLE + "Currently running Treasure Hunts:");
-                    String treasures = "";
+                    StringBuilder treasures = new StringBuilder();
                     for (int i = 0; i < mgs.size(); i++) {
-                        treasures += mgs.get(i).getName(false);
+                        treasures.append(mgs.get(i).getName(false));
                         if (i != mgs.size() - 1) {
-                            treasures += ", ";
+                            treasures.append(", ");
                         }
                     }
-                    player.sendInfoMessage(ChatColor.GRAY + treasures);
+                    player.sendInfoMessage(ChatColor.GRAY + treasures.toString());
                 } else {
                     TreasureHuntModule thm = TreasureHuntModule.getMinigameModule(mgs.get(0));
                     if (thm.hasTreasureLocation() && !thm.isTreasureFound()) {
@@ -99,8 +101,6 @@ public class HintCommand implements ICommand {
                         player.sendInfoMessage(ChatColor.GRAY + mgs.get(0).getName(false) + " is currently not running.");
                     }
                 }
-            } else if (mgs.isEmpty()) {
-                player.sendInfoMessage(ChatColor.LIGHT_PURPLE + "There are no Treasure Hunt minigames currently running.");
             }
         }
         return true;

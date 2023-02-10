@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GlobalLoadoutCommand implements ICommand {
-    private MinigameManager mdata = Minigames.getPlugin().getMinigameManager();
+    private final MinigameManager mdata = Minigames.getPlugin().getMinigameManager();
 
     @Override
     public String getName() {

@@ -14,9 +14,6 @@ public class BukkitDisplayPoint extends AbstractDisplayObject implements IDispla
     private static final Location temp = new Location(null, 0, 0, 0);
 
     private final Vector position;
-    private final boolean showDirection;
-    private final float yaw;
-    private final float pitch;
 
     public BukkitDisplayPoint(DisplayManager manager, Player player, Vector position, float yaw, float pitch, boolean showDirection) {
         this(manager, player.getWorld(), position, yaw, pitch, showDirection);
@@ -27,9 +24,6 @@ public class BukkitDisplayPoint extends AbstractDisplayObject implements IDispla
         super(manager, world);
 
         this.position = position;
-        this.showDirection = showDirection;
-        this.yaw = yaw;
-        this.pitch = pitch;
     }
 
     @Override

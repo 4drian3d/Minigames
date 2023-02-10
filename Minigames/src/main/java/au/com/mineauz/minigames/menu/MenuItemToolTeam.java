@@ -12,7 +12,7 @@ import au.com.mineauz.minigames.tool.MinigameTool;
 
 public class MenuItemToolTeam extends MenuItemList {
 
-    private Callback<String> value;
+    private final Callback<String> value;
 
     public MenuItemToolTeam(String name, Material displayItem, Callback<String> value, List<String> options) {
         super(name, displayItem, value, options);

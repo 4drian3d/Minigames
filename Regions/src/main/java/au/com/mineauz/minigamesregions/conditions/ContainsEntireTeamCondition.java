@@ -1,5 +1,6 @@
 package au.com.mineauz.minigamesregions.conditions;
 
+import java.util.HashSet;
 import java.util.Map;
 
 import org.bukkit.configuration.file.FileConfiguration;
@@ -39,7 +40,7 @@ public class ContainsEntireTeamCondition extends ConditionInterface {
 
     @Override
     public boolean checkRegionCondition(MinigamePlayer player, Region region) {
-        return region.getPlayers().containsAll(player.getTeam().getPlayers());
+        return new HashSet<>(region.getPlayers()).containsAll(player.getTeam().getPlayers());
     }
 
     @Override

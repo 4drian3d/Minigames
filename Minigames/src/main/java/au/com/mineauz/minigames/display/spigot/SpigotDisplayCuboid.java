@@ -11,10 +11,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 public class SpigotDisplayCuboid extends AbstractDisplayObject implements IDisplayCubiod, INonPersistantDisplay {
-    private static Location temp = new Location(null, 0, 0, 0);
+    private static final Location temp = new Location(null, 0, 0, 0);
 
-    private Vector minCorner;
-    private Vector maxCorner;
+    private final Vector minCorner;
+    private final Vector maxCorner;
 
     public SpigotDisplayCuboid(DisplayManager manager, World world, Vector minCorner, Vector maxCorner) {
         super(manager, world);
@@ -77,10 +77,11 @@ public class SpigotDisplayCuboid extends AbstractDisplayObject implements IDispl
         temp.setZ(z);
         temp.setWorld(getWorld());
 
+        // TODO: Check if this is a real barrier
         if (player == null) {
-            getWorld().spawnParticle(Particle.BARRIER, temp, 1);
+            getWorld().spawnParticle(Particle.BLOCK_MARKER, temp, 1);
         } else {
-            player.spawnParticle(Particle.BARRIER, temp, 1);
+            player.spawnParticle(Particle.BLOCK_MARKER, temp, 1);
         }
     }
 }

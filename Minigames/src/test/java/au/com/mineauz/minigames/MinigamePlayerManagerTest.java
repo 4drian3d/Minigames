@@ -3,12 +3,10 @@ package au.com.mineauz.minigames;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import au.com.mineauz.minigames.commands.JoinCommand;
 import au.com.mineauz.minigames.gametypes.MinigameType;
 import au.com.mineauz.minigames.helpers.TestHelper;
 import au.com.mineauz.minigames.mechanics.GameMechanics;
 import au.com.mineauz.minigames.minigame.Minigame;
-import au.com.mineauz.minigames.objects.SignBlockMock;
 import au.com.mineauz.minigames.objects.TestPlayer;
 import au.com.mineauz.minigames.objects.TestWorld;
 import be.seeseemelk.mockbukkit.MockBukkit;
@@ -17,11 +15,9 @@ import be.seeseemelk.mockbukkit.WorldMock;
 import be.seeseemelk.mockbukkit.command.ConsoleCommandSenderMock;
 import be.seeseemelk.mockbukkit.entity.PlayerMock;
 import be.seeseemelk.mockbukkit.entity.PlayerMockFactory;
-import org.bukkit.Location;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.sqlite.SQLiteDataSource;
 
 import static org.junit.Assert.*;
 
@@ -40,6 +36,7 @@ public class MinigamePlayerManagerTest {
         } catch (IllegalStateException e) {
             server = MockBukkit.getMock();
         }
+        //noinspection unchecked
         server.setPlayerFactory(new PlayerMockFactory(server, TestPlayer.class));
         ((ConsoleCommandSenderMock) server.getConsoleSender()).setOutputOnSend(false);
         WorldMock world = new TestWorld();

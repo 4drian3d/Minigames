@@ -68,7 +68,7 @@ public class PulseRedstoneAction extends AbstractAction {
         }
         final BlockState last = node.getLocation().getBlock().getState();
         node.getLocation().getBlock().setBlockData(bdata);
-        Bukkit.getScheduler().scheduleSyncDelayedTask(Minigames.getPlugin(), () -> last.update(true), 20 * time.getFlag());
+        Bukkit.getScheduler().scheduleSyncDelayedTask(Minigames.getPlugin(), () -> last.update(true), 20L * time.getFlag());
     }
 
     @Override

@@ -23,9 +23,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class MultiplayerType extends MinigameTypeBase {
-    private static Minigames plugin = Minigames.getPlugin();
-    private MinigamePlayerManager pdata = plugin.getPlayerManager();
-    private MinigameManager mdata = plugin.getMinigameManager();
+    private static final Minigames plugin = Minigames.getPlugin();
+    private final MinigamePlayerManager pdata = plugin.getPlayerManager();
+    private final MinigameManager mdata = plugin.getMinigameManager();
 
     public MultiplayerType() {
         setType(MinigameType.MULTIPLAYER);
@@ -371,12 +371,12 @@ public class MultiplayerType extends MinigameTypeBase {
                                             drawTeams.size(),
                                             event.getMinigame().getName(true)), MinigameMessageType.ERROR);
                                 }
-                                String scores = "";
+                                StringBuilder scores = new StringBuilder();
                                 int c = 1;
                                 for (Team t : TeamsModule.getMinigameModule(mgm).getTeams()) {
-                                    scores += t.getChatColor().toString() + t.getScore();
+                                    scores.append(t.getChatColor().toString()).append(t.getScore());
                                     if (c != TeamsModule.getMinigameModule(mgm).getTeams().size())
-                                        scores += ChatColor.WHITE + " : ";
+                                        scores.append(ChatColor.WHITE).append(" : ");
                                     c++;
                                 }
                                 ply.sendInfoMessage(MinigameUtils.getLang("minigame.info.score") + " " + scores);
@@ -394,12 +394,12 @@ public class MultiplayerType extends MinigameTypeBase {
                                         event.getMinigame().getName(true)));
                             }
 
-                            String scores = "";
+                            StringBuilder scores = new StringBuilder();
                             int c = 1;
                             for (Team t : TeamsModule.getMinigameModule(mgm).getTeams()) {
-                                scores += t.getChatColor().toString() + t.getScore();
+                                scores.append(t.getChatColor().toString()).append(t.getScore());
                                 if (c != TeamsModule.getMinigameModule(mgm).getTeams().size())
-                                    scores += ChatColor.WHITE + " : ";
+                                    scores.append(ChatColor.WHITE).append(" : ");
                                 c++;
                             }
                             plugin.getServer().broadcastMessage(MinigameUtils.getLang("minigame.info.score") + " " + scores);

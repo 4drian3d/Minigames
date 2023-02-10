@@ -12,7 +12,7 @@ import au.com.mineauz.minigames.tool.ToolMode;
 
 public class MenuItemToolMode extends MenuItem {
 
-    private ToolMode mode;
+    private final ToolMode mode;
 
     public MenuItemToolMode(String name, Material displayItem, ToolMode mode) {
         super(name, displayItem);

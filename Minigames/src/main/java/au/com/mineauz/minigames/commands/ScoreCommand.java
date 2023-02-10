@@ -84,7 +84,7 @@ public class ScoreCommand implements ICommand {
                     }
                 } else if (color != null) {
                     if (args.length >= 3) {
-                        Minigame mg = null;
+                        Minigame mg;
                         if (plugin.getMinigameManager().hasMinigame(args[2])) {
                             mg = plugin.getMinigameManager().getMinigame(args[2]);
                         } else {
@@ -113,7 +113,7 @@ public class ScoreCommand implements ICommand {
                 return true;
             } else if (args[0].equalsIgnoreCase("set") && args.length >= 3) {
 
-                int score = 0;
+                int score;
 
                 if (args[2].matches("-?[0-9]+")) {
                     score = Integer.parseInt(args[2]);
@@ -136,7 +136,7 @@ public class ScoreCommand implements ICommand {
                     }
                 } else if (color != null) {
                     if (args.length >= 4) {
-                        Minigame mg = null;
+                        Minigame mg;
                         if (plugin.getMinigameManager().hasMinigame(args[3])) {
                             mg = plugin.getMinigameManager().getMinigame(args[3]);
                         } else {
@@ -147,7 +147,7 @@ public class ScoreCommand implements ICommand {
                         TeamsModule tmod = TeamsModule.getMinigameModule(mg);
 
                         if (mg.isTeamGame() && mg.hasPlayers()) {
-                            Team t = null;
+                            Team t;
                             if (tmod.hasTeam(color)) {
                                 t = tmod.getTeam(color);
                                 t.setScore(score);
@@ -178,7 +178,7 @@ public class ScoreCommand implements ICommand {
                 }
                 return true;
             } else if (args[0].equalsIgnoreCase("add") && args.length >= 3) {
-                int score = 0;
+                int score;
 
                 if (args[2].matches("-?[0-9]+")) {
                     score = Integer.parseInt(args[2]);
@@ -199,8 +199,8 @@ public class ScoreCommand implements ICommand {
                         sender.sendMessage(ChatColor.RED + ply.getName() + " is not playing a Minigame!");
                     }
                 } else if (color != null) {
-                    Minigame mg = null;
-                    String mgName = null;
+                    Minigame mg;
+                    String mgName;
 
                     if (args.length == 4) {
                         mgName = args[3];
@@ -219,7 +219,7 @@ public class ScoreCommand implements ICommand {
                     TeamsModule tmod = TeamsModule.getMinigameModule(mg);
 
                     if (mg.isTeamGame() && mg.hasPlayers()) {
-                        Team team = null;
+                        Team team;
                         if (tmod.hasTeam(color)) {
                             team = tmod.getTeam(color);
                             team.addScore(score);

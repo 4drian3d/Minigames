@@ -46,9 +46,8 @@ public class RollbackScheduler implements Runnable {
             switch (bdata.getBlockState().getType()) {
                 case OAK_SIGN:
                 case OAK_WALL_SIGN:
-                    if (bdata.getBlockState() instanceof Sign) {
+                    if (bdata.getBlockState() instanceof Sign signOld) {
                         Sign sign = (Sign) bdata.getLocation().getBlock().getState();
-                        Sign signOld = (Sign) bdata.getBlockState();
                         sign.setLine(0, signOld.getLine(0));
                         sign.setLine(1, signOld.getLine(1));
                         sign.setLine(2, signOld.getLine(2));
@@ -64,10 +63,9 @@ public class RollbackScheduler implements Runnable {
                 case SKELETON_WALL_SKULL:
                 case CREEPER_WALL_HEAD:
                 case WITHER_SKELETON_WALL_SKULL:
-                    if (bdata.getBlockState() instanceof Skull) {
+                    if (bdata.getBlockState() instanceof Skull orig) {
                         Skull skull = (Skull) bdata.getBlockState().getBlock().getState();
                         Rotatable skullData = (Rotatable) skull.getBlockData();
-                        Skull orig = (Skull) bdata.getBlockState();
                         Rotatable origData = (Rotatable) orig.getBlockData();
                         if (orig.getOwningPlayer() != null) skull.setOwningPlayer(orig.getOwningPlayer());
                         skullData.setRotation(origData.getRotation());
@@ -86,8 +84,7 @@ public class RollbackScheduler implements Runnable {
                 case POTTED_AZURE_BLUET:
                 case POTTED_BIRCH_SAPLING:
             }
-            if (bdata.getLocation().getBlock().getState() instanceof InventoryHolder) {
-                InventoryHolder block = (InventoryHolder) bdata.getLocation().getBlock().getState();
+            if (bdata.getLocation().getBlock().getState() instanceof InventoryHolder block) {
                 if (bdata.getItems() != null)
                     block.getInventory().setContents(bdata.getItems().clone());
             }

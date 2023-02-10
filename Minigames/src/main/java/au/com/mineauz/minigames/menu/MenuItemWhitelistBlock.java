@@ -9,7 +9,7 @@ import au.com.mineauz.minigames.MinigameUtils;
 
 public class MenuItemWhitelistBlock extends MenuItem {
 
-    private List<Material> whitelist;
+    private final List<Material> whitelist;
 
     public MenuItemWhitelistBlock(Material displayItem, List<Material> whitelist) {
         super(MinigameUtils.capitalize(displayItem.toString().replace("_", " ")), displayItem);

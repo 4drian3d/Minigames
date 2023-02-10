@@ -29,12 +29,14 @@ public class IntegerFlag extends Flag<Integer> {
 
     @Override
     public MenuItem getMenuItem(String name, Material displayItem) {
-        return new MenuItemInteger(name, displayItem, new Callback<Integer>() {
+        return new MenuItemInteger(name, displayItem, new Callback<>() {
 
             @Override
             public Integer getValue() {
                 return getFlag();
-            }            @Override
+            }
+
+            @Override
             public void setValue(Integer value) {
                 setFlag(value);
             }
@@ -44,12 +46,14 @@ public class IntegerFlag extends Flag<Integer> {
     }
 
     public MenuItem getMenuItem(String name, Material displayItem, Integer min, Integer max) {
-        return new MenuItemInteger(name, displayItem, new Callback<Integer>() {
+        return new MenuItemInteger(name, displayItem, new Callback<>() {
 
             @Override
             public Integer getValue() {
                 return getFlag();
-            }            @Override
+            }
+
+            @Override
             public void setValue(Integer value) {
                 setFlag(value);
             }
@@ -60,12 +64,14 @@ public class IntegerFlag extends Flag<Integer> {
 
     @Override
     public MenuItem getMenuItem(String name, Material displayItem, List<String> description) {
-        return new MenuItemInteger(name, description, displayItem, new Callback<Integer>() {
+        return new MenuItemInteger(name, description, displayItem, new Callback<>() {
 
             @Override
             public Integer getValue() {
                 return getFlag();
-            }            @Override
+            }
+
+            @Override
             public void setValue(Integer value) {
                 setFlag(value);
             }
@@ -75,12 +81,14 @@ public class IntegerFlag extends Flag<Integer> {
     }
 
     public MenuItem getMenuItem(String name, Material displayItem, List<String> description, Integer min, Integer max) {
-        return new MenuItemInteger(name, description, displayItem, new Callback<Integer>() {
+        return new MenuItemInteger(name, description, displayItem, new Callback<>() {
 
             @Override
             public Integer getValue() {
                 return getFlag();
-            }            @Override
+            }
+
+            @Override
             public void setValue(Integer value) {
                 setFlag(value);
             }

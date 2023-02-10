@@ -18,10 +18,10 @@ import java.util.Map;
 
 public class InfectionModule extends MinigameModule {
 
-    private IntegerFlag infectedPercent = new IntegerFlag(18, "infectedPercent");
+    private final IntegerFlag infectedPercent = new IntegerFlag(18, "infectedPercent");
 
     //Unsaved Data
-    private List<MinigamePlayer> infected = new ArrayList<>();
+    private final List<MinigamePlayer> infected = new ArrayList<>();
 
     public InfectionModule(Minigame mgm) {
         super(mgm);

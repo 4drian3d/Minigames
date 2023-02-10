@@ -65,7 +65,7 @@ public class MinigamePlayer implements ScriptObject {
     private Location selection2;
     private IDisplayCubiod selectionDisplay;
     private OfflineMinigamePlayer oply;
-    private StoredPlayerCheckpoints spc;
+    private final StoredPlayerCheckpoints spc;
     private List<String> claimedRewards = new ArrayList<>();
     private int lateJoinTimer = -1;
     public MinigamePlayer(final Player player) {
@@ -194,11 +194,7 @@ public class MinigamePlayer implements ScriptObject {
         else
             this.player.setHealth(this.oply.getHealth());
         this.player.setSaturation(this.oply.getSaturation());
-        if (this.lastScoreboard != null) {
-            this.player.setScoreboard(this.lastScoreboard);
-        } else {
-            this.player.setScoreboard(this.player.getServer().getScoreboardManager().getMainScoreboard());
-        }
+        this.player.setScoreboard(Objects.requireNonNullElseGet(this.lastScoreboard, () -> this.player.getServer().getScoreboardManager().getMainScoreboard()));
 
         if (this.oply.getExp() >= 0) {
             this.player.setExp(this.oply.getExp());
@@ -619,7 +615,7 @@ public class MinigamePlayer implements ScriptObject {
     }
 
     public boolean teleport(final @NotNull Location location) {
-        boolean bool = false;
+        boolean bool;
         this.setAllowTeleport(true);
         bool = this.getPlayer().teleport(location);
         this.setAllowTeleport(false);

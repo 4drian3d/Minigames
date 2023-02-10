@@ -8,7 +8,7 @@ import org.bukkit.Bukkit;
 
 public class PlayMGSound {
 
-    private static boolean shouldPlay = Minigames.getPlugin().getConfig().getBoolean("playSounds");
+    private static final boolean shouldPlay = Minigames.getPlugin().getConfig().getBoolean("playSounds");
 
     public static void playSound(MinigamePlayer player, MGSound sound) {
         if (!shouldPlay) return;

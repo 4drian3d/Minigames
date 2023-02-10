@@ -25,9 +25,9 @@ import java.util.Set;
 
 public class LoadoutModule extends MinigameModule {
 
-    private static Map<Class<? extends LoadoutAddon>, LoadoutAddon<?>> addons = Maps.newHashMap();
-    private Map<String, PlayerLoadout> extraLoadouts = new HashMap<>();
-    private LoadoutSetFlag loadoutsFlag = new LoadoutSetFlag(extraLoadouts, "loadouts");
+    private static final Map<Class<? extends LoadoutAddon>, LoadoutAddon<?>> addons = Maps.newHashMap();
+    private final Map<String, PlayerLoadout> extraLoadouts = new HashMap<>();
+    private final LoadoutSetFlag loadoutsFlag = new LoadoutSetFlag(extraLoadouts, "loadouts");
 
     public LoadoutModule(Minigame mgm) {
         super(mgm);

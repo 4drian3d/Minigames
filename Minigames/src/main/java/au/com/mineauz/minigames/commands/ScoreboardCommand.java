@@ -17,7 +17,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ScoreboardCommand implements ICommand {
-    private Minigames plugin = Minigames.getPlugin();
+    private final Minigames plugin = Minigames.getPlugin();
+
 
     @Override
     public String getName() {
@@ -94,19 +95,10 @@ public class ScoreboardCommand implements ICommand {
         }
 
         // Prepare defaults for optionals
-        ScoreboardOrder order;
-        switch (field) {
-            case Last:
-            case Total:
-            case Max:
-                order = ScoreboardOrder.DESCENDING;
-                break;
-            case Min:
-                order = ScoreboardOrder.ASCENDING;
-                break;
-            default:
-                throw new AssertionError();
-        }
+        ScoreboardOrder order = switch (field) {
+            case Last, Total, Max -> ScoreboardOrder.DESCENDING;
+            case Min -> ScoreboardOrder.ASCENDING;
+        };
 
         int start = 0;
         int length = 8;
@@ -152,7 +144,7 @@ public class ScoreboardCommand implements ICommand {
         // Now load the values
         ListenableFuture<List<StoredStat>> future = plugin.getBackend().loadStats(minigame, stat, field, order, start, length);
 
-        Futures.addCallback(future, new FutureCallback<List<StoredStat>>() {
+        Futures.addCallback(future, new FutureCallback<>() {
             @Override
             public void onSuccess(List<StoredStat> result) {
                 sender.sendMessage(ChatColor.GREEN + minigame.getName(true) + " Scoreboard: " + settings.getDisplayName() + " - " + fField.getTitle() + " " + fOrder.toString().toLowerCase());
@@ -166,7 +158,7 @@ public class ScoreboardCommand implements ICommand {
                 sender.sendMessage(ChatColor.RED + "An internal error occured while loading the statistics");
                 t.printStackTrace();
             }
-        });
+        }, EXECUTOR);
 
         return true;
     }

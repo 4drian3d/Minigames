@@ -1,6 +1,5 @@
 package au.com.mineauz.minigames;
 
-import org.junit.Before;
 import org.junit.Test;
 
 

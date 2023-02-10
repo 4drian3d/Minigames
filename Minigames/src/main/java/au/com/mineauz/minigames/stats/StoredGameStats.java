@@ -2,7 +2,7 @@ package au.com.mineauz.minigames.stats;
 
 import java.util.Collections;
 import java.util.Map;
-import java.util.Map.Entry;
+import java.util.Objects;
 
 import com.google.common.collect.Maps;
 
@@ -37,9 +37,7 @@ public class StoredGameStats {
 
     public Map<MinigameStat, Long> getStats() {
         Map<MinigameStat, Long> newStats = Maps.newHashMapWithExpectedSize(stats.size());
-        for (Entry<MinigameStat, Long> entry : stats.entrySet()) {
-            newStats.put(entry.getKey(), entry.getValue());
-        }
+        newStats.putAll(stats);
 
         return Collections.unmodifiableMap(newStats);
     }
@@ -50,11 +48,7 @@ public class StoredGameStats {
 
     public long getStat(MinigameStat stat) {
         Long value = stats.get(stat);
-        if (value == null) {
-            return 0;
-        } else {
-            return value;
-        }
+        return Objects.requireNonNullElse(value, 0L);
     }
 
     public void applySettings(Map<MinigameStat, StatSettings> settings) {

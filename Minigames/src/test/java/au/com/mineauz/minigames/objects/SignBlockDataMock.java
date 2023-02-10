@@ -1,7 +1,15 @@
 package au.com.mineauz.minigames.objects;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.SoundGroup;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
+import org.bukkit.block.BlockSupport;
 import org.bukkit.block.data.BlockData;
+import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Created for the AddstarMC Project. Created by Narimm on 10/01/2019.
@@ -35,5 +43,70 @@ public class SignBlockDataMock implements BlockData {
     @Override
     public BlockData clone() {
         return null;
+    }
+
+    @Override
+    public @NotNull SoundGroup getSoundGroup() {
+        return new SoundGroup() {
+            @Override
+            public float getVolume() {
+                return 0;
+            }
+
+            @Override
+            public float getPitch() {
+                return 0;
+            }
+
+            @Override
+            public @NotNull Sound getBreakSound() {
+                return Sound.BLOCK_AMETHYST_BLOCK_BREAK;
+            }
+
+            @Override
+            public @NotNull Sound getStepSound() {
+                return Sound.BLOCK_AMETHYST_BLOCK_BREAK;
+            }
+
+            @Override
+            public @NotNull Sound getPlaceSound() {
+                return Sound.BLOCK_AMETHYST_BLOCK_BREAK;
+            }
+
+            @Override
+            public @NotNull Sound getHitSound() {
+                return Sound.BLOCK_AMETHYST_BLOCK_BREAK;
+            }
+
+            @Override
+            public @NotNull Sound getFallSound() {
+                return Sound.BLOCK_AMETHYST_BLOCK_BREAK;
+            }
+        };
+    }
+
+    @Override
+    public boolean isSupported(@NotNull Block block) {
+        return false;
+    }
+
+    @Override
+    public boolean isSupported(@NotNull Location location) {
+        return false;
+    }
+
+    @Override
+    public boolean isFaceSturdy(@NotNull BlockFace blockFace, @NotNull BlockSupport blockSupport) {
+        return false;
+    }
+
+    @Override
+    public boolean isRandomlyTicked() {
+        return false;
+    }
+
+    @Override
+    public boolean isPreferredTool(@NotNull ItemStack itemStack) {
+        return false;
     }
 }

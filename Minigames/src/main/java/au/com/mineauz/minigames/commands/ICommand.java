@@ -5,8 +5,11 @@ import au.com.mineauz.minigames.minigame.Minigame;
 import org.bukkit.command.CommandSender;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public interface ICommand {
+    ExecutorService EXECUTOR = Executors.newSingleThreadExecutor();
     //    public MinigamePlayerManager playerManager = Minigames.plugin.getPlayerData();
 //    public MinigameManager minigameManager = Minigames.plugin.getMinigameData();
     Minigames plugin = Minigames.getPlugin();

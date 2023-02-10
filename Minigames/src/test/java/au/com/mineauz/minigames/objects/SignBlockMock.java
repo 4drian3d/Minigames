@@ -13,7 +13,7 @@ import org.bukkit.block.data.BlockData;
 public class SignBlockMock extends BlockMock {
 
     private BlockStateMock state;
-    private BlockData data;
+    private final BlockData data;
 
     /**
      * Creates a basic block with a given material that is also linked to a specific location.

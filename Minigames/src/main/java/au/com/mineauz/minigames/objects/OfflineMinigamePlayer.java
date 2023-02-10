@@ -12,17 +12,16 @@ import org.bukkit.inventory.ItemStack;
 import java.util.UUID;
 
 public class OfflineMinigamePlayer {
-    private UUID uuid;
-    private ItemStack[] storedItems = null;
-    private ItemStack[] storedArmour = null;
-    private int food = 20;
-    private double health = 20;
-    private float saturation = 15;
+    private final UUID uuid;
+    private final ItemStack[] storedItems;
+    private final ItemStack[] storedArmour;
+    private final int food;
+    private final double health;
+    private final float saturation;
     private float exp = -1; //TODO: Set to default value after 1.7
     private int level = -1; //Set To default value after 1.7
-    private GameMode lastGM = GameMode.SURVIVAL;
+    private final GameMode lastGM;
     private Location loginLocation;
-    private boolean shouldSave = Minigames.getPlugin().getConfig().getBoolean("saveInventory");
 
     public OfflineMinigamePlayer(UUID uuid, ItemStack[] items,
                                  ItemStack[] armour, int food, double health,
@@ -40,6 +39,7 @@ public class OfflineMinigamePlayer {
         if (loginLocation != null && loginLocation.getWorld() == null)
             loginLocation = Bukkit.getWorlds().get(0).getSpawnLocation();
         this.loginLocation = loginLocation;
+        boolean shouldSave = Minigames.getPlugin().getConfig().getBoolean("saveInventory");
         if (shouldSave)
             savePlayerData();
     }
@@ -62,8 +62,8 @@ public class OfflineMinigamePlayer {
                     con.getDouble("location.x"),
                     con.getDouble("location.y"),
                     con.getDouble("location.z"),
-                    new Float(con.getString("location.yaw")),
-                    new Float(con.getString("location.pitch")));
+                    Float.parseFloat(con.getString("location.yaw")),
+                    Float.parseFloat(con.getString("location.pitch")));
             if (loginLocation.getWorld() == null)
                 loginLocation = Bukkit.getWorlds().get(0).getSpawnLocation();
         } else

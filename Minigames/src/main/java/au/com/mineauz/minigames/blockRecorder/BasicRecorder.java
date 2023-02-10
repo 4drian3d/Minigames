@@ -49,8 +49,7 @@ public class BasicRecorder implements Listener {
             if (((d.getWhitelistMode() && d.getWBBlocks().contains(event.getBlock().getType())) ||
                     (!d.getWhitelistMode() && !d.getWBBlocks().contains(event.getBlock().getType()))) &&
                     mgm.canBlockBreak()) {
-                if (event.getBlock().getState() instanceof Sign) {
-                    Sign sign = (Sign) event.getBlock().getState();
+                if (event.getBlock().getState() instanceof Sign sign) {
                     if (sign.getLine(0).equalsIgnoreCase(ChatColor.DARK_BLUE + "[Minigame]")) {
                         event.setCancelled(true);
                     } else {
@@ -167,14 +166,12 @@ public class BasicRecorder implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     private void animalHurt(EntityDamageByEntityEvent event) {
-        if (event.getEntity() instanceof Animals) {
-            Animals animal = (Animals) event.getEntity();
+        if (event.getEntity() instanceof Animals animal) {
             if (animal.getHealth() <= event.getDamage()) {
                 MinigamePlayer ply = null;
                 if (event.getDamager() instanceof Player) {
                     ply = pdata.getMinigamePlayer((Player) event.getDamager());
-                } else if (event.getDamager() instanceof Arrow) {
-                    Arrow arr = (Arrow) event.getDamager();
+                } else if (event.getDamager() instanceof Arrow arr) {
                     if (arr.getShooter() instanceof Player) {
                         ply = pdata.getMinigamePlayer((Player) arr.getShooter());
                     }
@@ -207,8 +204,7 @@ public class BasicRecorder implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     private void arrowShoot(EntityShootBowEvent event) {
-        if (event.getEntity() instanceof Player) {
-            Player ply = (Player) event.getEntity();
+        if (event.getEntity() instanceof Player ply) {
             if (pdata.getMinigamePlayer(ply).isInMinigame()) {
                 pdata.getMinigamePlayer(ply).getMinigame().getBlockRecorder().addEntity(event.getProjectile(), pdata.getMinigamePlayer(ply), true);
             }
@@ -217,8 +213,7 @@ public class BasicRecorder implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     private void throwEnderpearl(ProjectileLaunchEvent event) {
-        if (event.getEntity().getShooter() instanceof Player) {
-            Player ply = (Player) event.getEntity().getShooter();
+        if (event.getEntity().getShooter() instanceof Player ply) {
             if (pdata.getMinigamePlayer(ply).isInMinigame()) {
                 pdata.getMinigamePlayer(ply).getMinigame().getBlockRecorder().addEntity(event.getEntity(), pdata.getMinigamePlayer(ply), true);
             }
@@ -249,8 +244,7 @@ public class BasicRecorder implements Listener {
     @EventHandler(ignoreCancelled = true)
     private void vehicleDestroy(VehicleDestroyEvent event) {
         if (event.getAttacker() != null) {
-            if (event.getAttacker() instanceof Player) {
-                Player ply = (Player) event.getAttacker();
+            if (event.getAttacker() instanceof Player ply) {
                 Minigame mg = pdata.getMinigamePlayer(ply).getMinigame();
                 if (pdata.getMinigamePlayer(ply).isInMinigame()) {
                     if (!mg.getBlockRecorder().hasEntity(event.getVehicle())) {

@@ -25,16 +25,12 @@ public class MinigameUtils {
      * @return The ItemStack referred to in the parameter.
      */
     public static ItemStack stringToItemStack(String item, int quantity) {
-        String itemName = "";
-        short itemData = 0;
-        String[] split = null;
+        String itemName;
+        String[] split;
 
         if (item.contains(":")) {
             split = item.split(":");
             itemName = split[0].toUpperCase();
-            if (split[1].matches("[0-9]+")) {
-                itemData = Short.parseShort(split[1]);
-            }
         } else {
             itemName = item.toUpperCase();
         }
@@ -70,7 +66,7 @@ public class MinigameUtils {
         int days = 0;
         int hours = 0;
         int minutes = 0;
-        int seconds = 0;
+        int seconds;
         int rtime = time;
         String msg = "";
 
@@ -204,24 +200,24 @@ public class MinigameUtils {
      * @return A string representation of the list
      */
     public static String listToString(List<String> list) {
-        String slist = "";
+        final StringBuilder slist = new StringBuilder();
         boolean switchColour = false;
         for (String entry : list) {
             if (switchColour) {
-                slist += ChatColor.WHITE + entry;
+                slist.append(ChatColor.WHITE).append(entry);
                 if (!entry.equalsIgnoreCase(list.get(list.size() - 1))) {
-                    slist += ChatColor.WHITE + ", ";
+                    slist.append(ChatColor.WHITE).append(", ");
                 }
                 switchColour = false;
             } else {
-                slist += ChatColor.GRAY + entry;
+                slist.append(ChatColor.GRAY).append(entry);
                 if (!entry.equalsIgnoreCase(list.get(list.size() - 1))) {
-                    slist += ChatColor.WHITE + ", ";
+                    slist.append(ChatColor.WHITE).append(", ");
                 }
                 switchColour = true;
             }
         }
-        return slist;
+        return slist.toString();
     }
 
     /**
@@ -243,7 +239,7 @@ public class MinigameUtils {
      * @param format - The location in the YAML of the string to format.
      * @param text   - What to replace the formatted variables with.
      * @return The formatted string. If not found, will return the format
-     * @deprecated use {@link MessageManager#getMinigamesMessage(String, String...)}
+     * @deprecated use {@link MessageManager#getMinigamesMessage(String, Object...)}
      */
     @Deprecated
     public static String formStr(String format, Object... text) {
@@ -384,23 +380,23 @@ public class MinigameUtils {
      *
      * @param toCapitalize The string to capitalize
      * @return The capitalized string
-     * @deprecated use {@link org.apache.commons.lang.WordUtils#capitalize(String)}
+     * @deprecated use {@link org.apache.commons.lang3.text.WordUtils#capitalize(String)}
      */
     @Deprecated
     public static String capitalize(String toCapitalize) {
         if (toCapitalize == null) return null;
-        String val = toCapitalize.toLowerCase();
-        String[] spl = val.split(" ");
-        val = "";
+        StringBuilder val = new StringBuilder(toCapitalize.toLowerCase());
+        String[] spl = val.toString().split(" ");
+        val = new StringBuilder();
         for (String s : spl) {
             String c = Character.toString(s.charAt(0));
             s = s.substring(1);
             c = c.toUpperCase();
             s = c + s;
-            val += s + " ";
+            val.append(s).append(" ");
         }
-        val = val.trim();
-        return val;
+        val = new StringBuilder(val.toString().trim());
+        return val.toString();
     }
 
     /**

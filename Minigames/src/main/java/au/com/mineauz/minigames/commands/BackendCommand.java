@@ -10,11 +10,13 @@ import com.google.common.util.concurrent.ListenableFuture;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.logging.Level;
 
 public class BackendCommand implements ICommand {
+
     @Override
     public String getName() {
         return "backend";
@@ -68,16 +70,16 @@ public class BackendCommand implements ICommand {
                 ListenableFuture<Void> future = manager.exportTo(args[1], Minigames.getPlugin().getConfig(), new Notifier(sender));
                 sender.sendMessage(ChatColor.GOLD + "Exporting backend to " + args[1] + "...");
 
-                Futures.addCallback(future, new FutureCallback<Void>() {
+                Futures.addCallback(future, new FutureCallback<>() {
                     @Override
-                    public void onFailure(Throwable t) {
+                    public void onFailure(@NotNull Throwable t) {
                         sender.sendMessage(ChatColor.RED + "An internal error occured while exporting.");
                     }
 
                     @Override
                     public void onSuccess(Void result) {
                     }
-                });
+                }, EXECUTOR);
             } catch (IllegalArgumentException e) {
                 sender.sendMessage(ChatColor.RED + e.getMessage());
             }
@@ -86,9 +88,9 @@ public class BackendCommand implements ICommand {
                 ListenableFuture<Void> future = manager.switchBackend(args[1], Minigames.getPlugin().getConfig());
                 sender.sendMessage(ChatColor.GOLD + "Switching minigames backend to " + args[1] + "...");
 
-                Futures.addCallback(future, new FutureCallback<Void>() {
+                Futures.addCallback(future, new FutureCallback<>() {
                     @Override
-                    public void onFailure(Throwable t) {
+                    public void onFailure(@NotNull Throwable t) {
                         sender.sendMessage(ChatColor.RED + "An internal error occured while switching backend.");
                     }
 
@@ -97,7 +99,7 @@ public class BackendCommand implements ICommand {
                         sender.sendMessage(ChatColor.GOLD + "The backend has been successfully switched");
                         sender.sendMessage(ChatColor.GOLD + "!!! This change is " + ChatColor.BOLD + "temporary" + ChatColor.GOLD + ". Please update the config !!!");
                     }
-                });
+                }, EXECUTOR);
             } catch (IllegalArgumentException e) {
                 sender.sendMessage(ChatColor.RED + e.getMessage());
             }

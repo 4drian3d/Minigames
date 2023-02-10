@@ -25,13 +25,11 @@ public class TestPlayer extends PlayerMock {
     private float exp;
     private int level;
     private float fallDistance;
-    private boolean flying;
     private boolean allowFlight;
-    private float walkSpeed;
     private float flyspeed;
     private int noDamageTicks;
     private WeatherType playerWeather = WeatherType.CLEAR;
-    private List<PotionEffect> effects;
+    private final List<PotionEffect> effects;
     private Scoreboard scoreboard = new ScoreboardMock();
 
     public TestPlayer(ServerMock server, String name, UUID uuid) {
@@ -124,7 +122,7 @@ public class TestPlayer extends PlayerMock {
 
     @Override
     public void updateInventory() {
-        System.out.println(getInventory().toString());
+        System.out.println(getInventory());
     }
 
     @Override
@@ -188,23 +186,16 @@ public class TestPlayer extends PlayerMock {
     }
 
     @Override
-    public int getTotalExperience() {
-        return super.getTotalExperience();
-    }
-
-    @Override
     public void setTotalExperience(int exp) {
         super.setTotalExperience(exp);
     }
 
     @Override
     public void setFlying(boolean value) {
-        this.flying = value;
     }
 
     @Override
     public void setWalkSpeed(float value) throws IllegalArgumentException {
-        this.walkSpeed = value;
     }
 
     @Override

@@ -9,7 +9,7 @@ import com.google.common.base.Preconditions;
 
 public class MenuItemPage extends MenuItem {
 
-    private Menu menu = null;
+    private final Menu menu;
 
     public MenuItemPage(String name, Material displayItem, Menu menu) {
         super(name, displayItem);

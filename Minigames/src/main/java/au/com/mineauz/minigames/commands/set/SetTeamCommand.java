@@ -147,15 +147,15 @@ public class SetTeamCommand implements ICommand {
             } else if (args[0].equalsIgnoreCase("rename")) {
                 if (args.length > 2) {
                     TeamColor col = TeamColor.matchColor(args[1]);
-                    String name = "";
+                    StringBuilder name = new StringBuilder();
                     for (int i = 2; i < args.length; i++) {
-                        name += args[i];
+                        name.append(args[i]);
                         if (i != args.length - 1)
-                            name += " ";
+                            name.append(" ");
                     }
                     if (col != null) {
                         if (tmod.hasTeam(col)) {
-                            tmod.getTeam(col).setDisplayName(name);
+                            tmod.getTeam(col).setDisplayName(name.toString());
                             sender.sendMessage(ChatColor.GRAY + "Set " + MinigameUtils.capitalize(col.toString()) + " display name to " + name + " for " + minigame.getName(false));
                         } else {
                             sender.sendMessage(ChatColor.RED + minigame.getName(false) + " does not have the team " + MinigameUtils.capitalize(col.toString()));

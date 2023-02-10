@@ -14,7 +14,7 @@ import java.util.List;
 
 public class MenuItemDisplayLoadout extends MenuItem {
 
-    private PlayerLoadout loadout = null;
+    private final PlayerLoadout loadout;
     private Minigame mgm = null;
     private boolean allowDelete = true;
     private Menu altMenu = null;

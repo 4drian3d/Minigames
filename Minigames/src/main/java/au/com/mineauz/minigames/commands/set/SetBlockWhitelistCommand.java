@@ -68,6 +68,7 @@ public class SetBlockWhitelistCommand implements ICommand {
                     Material mat = Material.matchMaterial(args[1].toUpperCase());
 
                     minigame.getBlockRecorder().addWBBlock(mat);
+                    assert mat != null;
 
                     if (minigame.getBlockRecorder().getWhitelistMode()) {
                         sender.sendMessage(ChatColor.GRAY + "Added " + mat.toString().replace("_", " ").toLowerCase() + " to the whitelist for " + minigame);
@@ -99,19 +100,19 @@ public class SetBlockWhitelistCommand implements ICommand {
                     sender.sendMessage(ChatColor.GRAY + "Cleared all blocks from the blacklist for " + minigame);
                 }
             } else if (args[0].equalsIgnoreCase("list")) {
-                String blocks = "";
+                StringBuilder blocks = new StringBuilder();
                 boolean switchColour = false;
                 for (Material block : minigame.getBlockRecorder().getWBBlocks()) {
                     if (switchColour) {
-                        blocks += ChatColor.WHITE + block.toString();
+                        blocks.append(ChatColor.WHITE).append(block.toString());
                         if (!block.toString().equalsIgnoreCase(minigame.getBlockRecorder().getWBBlocks().get(minigame.getBlockRecorder().getWBBlocks().size() - 1).toString())) {
-                            blocks += ChatColor.WHITE + ", ";
+                            blocks.append(ChatColor.WHITE).append(", ");
                         }
                         switchColour = false;
                     } else {
-                        blocks += ChatColor.GRAY + block.toString();
+                        blocks.append(ChatColor.GRAY).append(block.toString());
                         if (!block.toString().equalsIgnoreCase(minigame.getBlockRecorder().getWBBlocks().get(minigame.getBlockRecorder().getWBBlocks().size() - 1).toString())) {
-                            blocks += ChatColor.WHITE + ", ";
+                            blocks.append(ChatColor.WHITE).append(", ");
                         }
                         switchColour = true;
                     }
@@ -121,7 +122,7 @@ public class SetBlockWhitelistCommand implements ICommand {
                 } else {
                     sender.sendMessage(ChatColor.GRAY + "All blocks on the blacklist:");
                 }
-                sender.sendMessage(blocks);
+                sender.sendMessage(blocks.toString());
             } else {
                 boolean bool = Boolean.parseBoolean(args[0]);
                 minigame.getBlockRecorder().setWhitelistMode(bool);

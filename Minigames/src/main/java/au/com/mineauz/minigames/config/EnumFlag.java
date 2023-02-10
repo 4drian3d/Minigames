@@ -9,7 +9,7 @@ import au.com.mineauz.minigames.menu.MenuItem;
 
 public class EnumFlag<T extends Enum<T>> extends Flag<T> {
 
-    private Class<T> enumClass;
+    private final Class<T> enumClass;
 
     @SuppressWarnings("unchecked")
     public EnumFlag(T value, String name) {

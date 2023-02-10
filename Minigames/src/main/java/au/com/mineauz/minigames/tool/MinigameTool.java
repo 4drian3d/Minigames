@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MinigameTool {
-    private ItemStack tool;
+    private final ItemStack tool;
     private Minigame minigame = null;
     private ToolMode mode = null;
     private TeamColor team = null;
@@ -157,7 +157,7 @@ public class MinigameTool {
             teams.add(MinigameUtils.capitalize(col.toString().replace("_", " ")));
         teams.add("None");
 
-        men.addItem(new MenuItemToolTeam("Team", Material.PAPER, new Callback<String>() {
+        men.addItem(new MenuItemToolTeam("Team", Material.PAPER, new Callback<>() {
 
             @Override
             public String getValue() {

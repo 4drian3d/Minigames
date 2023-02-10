@@ -5,12 +5,10 @@ import au.com.mineauz.minigames.MinigameUtils;
 import au.com.mineauz.minigames.gametypes.MinigameType;
 import au.com.mineauz.minigames.managers.MessageManager;
 import au.com.mineauz.minigames.minigame.Minigame;
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandException;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,7 +74,7 @@ public class CreateCommand implements ICommand {
                 }
                 Minigame mgm = new Minigame(mgmName, type, player.getLocation());
                 MessageManager.sendMessage(player,MinigameMessageType.INFO,null,"command.create.success",args[0]);
-                List<String> mgs = null;
+                List<String> mgs;
                 if (plugin.getConfig().contains("minigames")) {
                     mgs = plugin.getConfig().getStringList("minigames");
                 } else {

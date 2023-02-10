@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ExpressionParser {
-    private static Pattern pathSegmentPattern = Pattern.compile("([a-z]+)(?:\\[([a-z0-9]+)\\])?");
+    private static final Pattern pathSegmentPattern = Pattern.compile("([a-z]+)(?:\\[([a-z0-9]+)\\])?");
 
     /**
      * Parses a path and resolves an object from the path.
@@ -22,14 +22,14 @@ public class ExpressionParser {
 
         ScriptReference lastRef = null;
         ScriptObject current = root;
-        String pathToCurrent = "";
+        StringBuilder pathToCurrent = new StringBuilder();
 
         for (String segment : segments) {
             // Keep track of path for error display
-            if (!pathToCurrent.isEmpty()) {
-                pathToCurrent += ".";
+            if (pathToCurrent.length() > 0) {
+                pathToCurrent.append(".");
             }
-            pathToCurrent += segment;
+            pathToCurrent.append(segment);
 
             if (current == null) {
                 throw new NoSuchElementException("Unable to resolve '" + pathToCurrent + "'");

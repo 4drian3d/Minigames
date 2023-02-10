@@ -10,7 +10,7 @@ import org.bukkit.event.block.SignChangeEvent;
 
 public class QuitSign implements MinigameSign {
 
-    private static Minigames plugin = Minigames.getPlugin();
+    private static final Minigames plugin = Minigames.getPlugin();
 
     @Override
     public String getName() {

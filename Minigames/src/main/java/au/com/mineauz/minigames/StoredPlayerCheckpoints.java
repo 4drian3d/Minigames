@@ -7,12 +7,12 @@ import org.bukkit.World;
 import java.util.*;
 
 public class StoredPlayerCheckpoints {
-    private String uuid;
-    private Map<String, Location> checkpoints;
-    private Map<String, List<String>> flags;
-    private Map<String, Long> storedTime;
-    private Map<String, Integer> storedDeaths;
-    private Map<String, Integer> storedReverts;
+    private final String uuid;
+    private final Map<String, Location> checkpoints;
+    private final Map<String, List<String>> flags;
+    private final Map<String, Long> storedTime;
+    private final Map<String, Integer> storedDeaths;
+    private final Map<String, Integer> storedReverts;
     private Location globalCheckpoint;
 
     public StoredPlayerCheckpoints(String uuid) {
@@ -191,8 +191,8 @@ public class StoredPlayerCheckpoints {
                     Double locx = (Double) save.getConfig().get(mgm + ".x");
                     Double locy = (Double) save.getConfig().get(mgm + ".y");
                     Double locz = (Double) save.getConfig().get(mgm + ".z");
-                    Float yaw = new Float(save.getConfig().get(mgm + ".yaw").toString());
-                    Float pitch = new Float(save.getConfig().get(mgm + ".pitch").toString());
+                    float yaw = Float.parseFloat(save.getConfig().get(mgm + ".yaw").toString());
+                    float pitch = Float.parseFloat(save.getConfig().get(mgm + ".pitch").toString());
                     String world = (String) save.getConfig().get(mgm + ".world");
 
                     World w = Minigames.getPlugin().getServer().getWorld(world);
@@ -230,8 +230,8 @@ public class StoredPlayerCheckpoints {
             double x = save.getConfig().getDouble("globalcheckpoint.x");
             double y = save.getConfig().getDouble("globalcheckpoint.y");
             double z = save.getConfig().getDouble("globalcheckpoint.z");
-            Float yaw = new Float(save.getConfig().get("globalcheckpoint.yaw").toString());
-            Float pitch = new Float(save.getConfig().get("globalcheckpoint.pitch").toString());
+            float yaw = Float.parseFloat(save.getConfig().get("globalcheckpoint.yaw").toString());
+            float pitch = Float.parseFloat(save.getConfig().get("globalcheckpoint.pitch").toString());
             String world = save.getConfig().getString("globalcheckpoint.world");
 
             World w = Minigames.getPlugin().getServer().getWorld(world);

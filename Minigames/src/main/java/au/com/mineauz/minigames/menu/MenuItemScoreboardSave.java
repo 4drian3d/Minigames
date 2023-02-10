@@ -8,7 +8,7 @@ import au.com.mineauz.minigames.minigame.ScoreboardDisplay;
 
 public class MenuItemScoreboardSave extends MenuItem {
 
-    private ScoreboardDisplay disp;
+    private final ScoreboardDisplay disp;
 
     public MenuItemScoreboardSave(String name, Material displayItem, ScoreboardDisplay disp) {
         super(name, displayItem);

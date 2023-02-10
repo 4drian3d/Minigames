@@ -39,8 +39,7 @@ public class TreasureHuntMechanic extends GameMechanicBase {
                   c = old.getChunk();
                   c.setForceLoaded(true);
                 }
-                if (old.getBlock().getState() instanceof Chest) {
-                    Chest chest = (Chest) old.getBlock().getState();
+                if (old.getBlock().getState() instanceof Chest chest) {
                     chest.getInventory().clear();
                     old.getBlock().setType(Material.AIR);
                 }
@@ -88,29 +87,24 @@ public class TreasureHuntMechanic extends GameMechanicBase {
 
         //Add a new Chest
         //TODO: Improve so no invalid spawns (Not over void, Strict containment)
-        switch (rpos.getBlock().getType()){
-            case AIR:
-            case CAVE_AIR:
-            case VOID_AIR:
+        switch (rpos.getBlock().getType()) {
+            case AIR, CAVE_AIR, VOID_AIR -> {
                 while (rpos.getBlock().getType() == Material.AIR && rpos.getY() > 1) {
                     rpos.setY(rpos.getY() - 1);
                 }
                 rpos.setY(rpos.getY() + 1);
-
-                Bukkit.getScheduler().runTaskLater(plugin, () -> rpos.getBlock().setType(Material.CHEST),1L);
-                break;
-
-                default:
-                    while (rpos.getBlock().getType() != Material.AIR && rpos.getY() < 255) {
-                        rpos.setY(rpos.getY() + 1);
-                    }
-                    Bukkit.getScheduler().runTaskLater(plugin, () -> rpos.getBlock().setType(Material.CHEST),1L);
-                    break;
+                Bukkit.getScheduler().runTaskLater(plugin, () -> rpos.getBlock().setType(Material.CHEST), 1L);
+            }
+            default -> {
+                while (rpos.getBlock().getType() != Material.AIR && rpos.getY() < 255) {
+                    rpos.setY(rpos.getY() + 1);
+                }
+                Bukkit.getScheduler().runTaskLater(plugin, () -> rpos.getBlock().setType(Material.CHEST), 1L);
+            }
         }
         //Fill new chest
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            if (rpos.getBlock().getState() instanceof Chest) {
-                final Chest chest = (Chest) rpos.getBlock().getState();
+            if (rpos.getBlock().getState() instanceof final Chest chest) {
 
                 // TODO: Treasure hunt needs own rewards specification
                 RewardsModule rewards = RewardsModule.getModule(mgm);
@@ -121,8 +115,7 @@ public class TreasureHuntMechanic extends GameMechanicBase {
                         final ItemStack[] items = new ItemStack[27];
                         for (int i = 0; i < numitems; i++) {
                             RewardType rew = ((StandardRewardScheme) rewards.getScheme()).getPrimaryReward().getReward().get(0);
-                            if (rew instanceof ItemReward) {
-                                ItemReward irew = (ItemReward) rew;
+                            if (rew instanceof ItemReward irew) {
                                 items[i] = irew.getRewardItem();
                             }
                         }

@@ -1,14 +1,11 @@
 package au.com.mineauz.minigames.display;
 
 import au.com.mineauz.minigames.Minigames;
-import au.com.mineauz.minigames.display.bukkit.BukkitDisplayCuboid;
-import au.com.mineauz.minigames.display.bukkit.BukkitDisplayPoint;
 import au.com.mineauz.minigames.display.spigot.SpigotDisplayCuboid;
 import au.com.mineauz.minigames.display.spigot.SpigotDisplayPoint;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Maps;
 import com.google.common.collect.SetMultimap;
-import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -19,40 +16,18 @@ import org.bukkit.util.Vector;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class DisplayManager {
-    private boolean isSpigot;
+import static com.google.common.base.Preconditions.*;
 
+public class DisplayManager {
     private BukkitTask refreshTask;
 
-    private Map<INonPersistantDisplay, Integer> nextTickDelay;
+    private final Map<INonPersistantDisplay, Integer> nextTickDelay = Maps.newIdentityHashMap();
 
-    private SetMultimap<Player, AbstractDisplayObject> playerDisplays;
-    private SetMultimap<World, AbstractDisplayObject> worldDisplays;
-
-    public DisplayManager() {
-        playerDisplays = HashMultimap.create();
-        worldDisplays = HashMultimap.create();
-
-        nextTickDelay = Maps.newIdentityHashMap();
-
-        checkSpigot();
-    }
-
-    private void checkSpigot() {
-        try {
-            Class.forName("org.bukkit.Server$Spigot");
-            isSpigot = true;
-        } catch (ClassNotFoundException e) {
-            // Not spigot
-        }
-    }
-
-    public boolean isAdvanced() {
-        return isSpigot;
-    }
+    private final SetMultimap<Player, AbstractDisplayObject> playerDisplays = HashMultimap.create();
+    private final SetMultimap<World, AbstractDisplayObject> worldDisplays = HashMultimap.create();
 
     public IDisplayCubiod displayCuboid(Player player, Location corner1, Location corner2) {
-        Validate.isTrue(corner1.getWorld() == corner2.getWorld(), "Both corners must be in the same world");
+        checkArgument(corner1.getWorld() == corner2.getWorld(), "Both corners must be in the same world");
 
         double minX = Math.min(corner1.getX(), corner2.getX());
         double maxX = Math.max(corner1.getX(), corner2.getX());
@@ -65,7 +40,7 @@ public class DisplayManager {
     }
 
     public IDisplayCubiod displayCuboid(Location corner1, Location corner2) {
-        Validate.isTrue(corner1.getWorld() == corner2.getWorld(), "Both corners must be in the same world");
+        checkArgument(corner1.getWorld() == corner2.getWorld(), "Both corners must be in the same world");
 
         double minX = Math.min(corner1.getX(), corner2.getX());
         double maxX = Math.max(corner1.getX(), corner2.getX());
@@ -78,19 +53,11 @@ public class DisplayManager {
     }
 
     public IDisplayCubiod displayCuboid(Player player, double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
-        if (isSpigot) {
-            return new SpigotDisplayCuboid(this, player, new Vector(minX, minY, minZ), new Vector(maxX, maxY, maxZ));
-        } else {
-            return new BukkitDisplayCuboid(this, player, new Vector(minX, minY, minZ), new Vector(maxX, maxY, maxZ));
-        }
+        return new SpigotDisplayCuboid(this, player, new Vector(minX, minY, minZ), new Vector(maxX, maxY, maxZ));
     }
 
     public IDisplayCubiod displayCuboid(World world, double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
-        if (isSpigot) {
-            return new SpigotDisplayCuboid(this, world, new Vector(minX, minY, minZ), new Vector(maxX, maxY, maxZ));
-        } else {
-            return new BukkitDisplayCuboid(this, world, new Vector(minX, minY, minZ), new Vector(maxX, maxY, maxZ));
-        }
+        return new SpigotDisplayCuboid(this, world, new Vector(minX, minY, minZ), new Vector(maxX, maxY, maxZ));
     }
 
     public IDisplayPoint displayPoint(Player player, Location location, boolean showDirection) {
@@ -102,19 +69,11 @@ public class DisplayManager {
     }
 
     public IDisplayPoint displayPoint(Player player, double x, double y, double z, float yaw, float pitch, boolean showDirection) {
-        if (isSpigot) {
-            return new SpigotDisplayPoint(this, player, new Vector(x, y, z), yaw, pitch, showDirection);
-        } else {
-            return new BukkitDisplayPoint(this, player, new Vector(x, y, z), yaw, pitch, showDirection);
-        }
+        return new SpigotDisplayPoint(this, player, new Vector(x, y, z), yaw, pitch, showDirection);
     }
 
     public IDisplayPoint displayPoint(World world, double x, double y, double z, float yaw, float pitch, boolean showDirection) {
-        if (isSpigot) {
-            return new SpigotDisplayPoint(this, world, new Vector(x, y, z), yaw, pitch, showDirection);
-        } else {
-            return new BukkitDisplayPoint(this, world, new Vector(x, y, z), yaw, pitch, showDirection);
-        }
+        return new SpigotDisplayPoint(this, world, new Vector(x, y, z), yaw, pitch, showDirection);
     }
 
     public void removeAll(Player player) {
@@ -143,8 +102,7 @@ public class DisplayManager {
     }
 
     protected void onShow(IDisplayObject object) {
-        if (object instanceof INonPersistantDisplay) {
-            INonPersistantDisplay display = (INonPersistantDisplay) object;
+        if (object instanceof INonPersistantDisplay display) {
             nextTickDelay.put(display, display.getRefreshInterval());
 
             enableRefreshTask();
@@ -152,8 +110,7 @@ public class DisplayManager {
     }
 
     protected void onHide(IDisplayObject object) {
-        if (object instanceof INonPersistantDisplay) {
-            INonPersistantDisplay display = (INonPersistantDisplay) object;
+        if (object instanceof INonPersistantDisplay display) {
             nextTickDelay.remove(display);
 
             disableRefreshTask();

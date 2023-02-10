@@ -199,7 +199,7 @@ public class TreasureHuntModule extends MinigameModule {
         if (hintUse.containsKey(player.getUUID())) {
             long curtime = System.currentTimeMillis();
             long lastuse = curtime - hintUse.get(player.getUUID());
-            return lastuse >= getHintDelay() * 1000;
+            return lastuse >= getHintDelay() * 1000L;
         }
         return true;
     }

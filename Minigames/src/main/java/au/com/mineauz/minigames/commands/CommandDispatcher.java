@@ -13,14 +13,11 @@ import org.bukkit.entity.Player;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CommandDispatcher implements CommandExecutor, TabCompleter {
-    private static Map<String, ICommand> commands = new HashMap<>();
-    private static Minigames plugin = Minigames.getPlugin();
+    private static final Map<String, ICommand> commands = new HashMap<>();
+    private static final Minigames plugin = Minigames.getPlugin();
     private static BufferedWriter cmdFile;
 
     static {
@@ -186,13 +183,13 @@ public class CommandDispatcher implements CommandExecutor, TabCompleter {
                                     if (switchColour) {
                                         parameters.append(ChatColor.WHITE).append(par);
                                         if (!par.equalsIgnoreCase(comd.getParameters()[comd.getParameters().length - 1])) {
-                                            parameters.append(ChatColor.WHITE + ", ");
+                                            parameters.append(ChatColor.WHITE).append(", ");
                                         }
                                         switchColour = false;
                                     } else {
                                         parameters.append(ChatColor.GRAY).append(par);
                                         if (!par.equalsIgnoreCase(comd.getParameters()[comd.getParameters().length - 1])) {
-                                            parameters.append(ChatColor.WHITE + ", ");
+                                            parameters.append(ChatColor.WHITE).append(", ");
                                         }
                                         switchColour = true;
                                     }
@@ -208,13 +205,13 @@ public class CommandDispatcher implements CommandExecutor, TabCompleter {
                                     if (switchColour) {
                                         aliases.append(ChatColor.WHITE).append(alias);
                                         if (!alias.equalsIgnoreCase(comd.getAliases()[comd.getAliases().length - 1])) {
-                                            aliases.append(ChatColor.WHITE + ", ");
+                                            aliases.append(ChatColor.WHITE).append(", ");
                                         }
                                         switchColour = false;
                                     } else {
                                         aliases.append(ChatColor.GRAY).append(alias);
                                         if (!alias.equalsIgnoreCase(comd.getAliases()[comd.getAliases().length - 1])) {
-                                            aliases.append(ChatColor.WHITE + ", ");
+                                            aliases.append(ChatColor.WHITE).append(", ");
                                         }
                                         switchColour = true;
                                     }
@@ -264,10 +261,7 @@ public class CommandDispatcher implements CommandExecutor, TabCompleter {
                 if (ply != null) {
                     if (args.length > 1) {
                         List<String> l = comd.onTabComplete(sender, null, alias, shortArgs);
-                        if (l != null)
-                            return l;
-                        else
-                            return MinigameUtils.stringToList("");
+                        return Objects.requireNonNullElseGet(l, () -> MinigameUtils.stringToList(""));
                     }
                 }
             } else {

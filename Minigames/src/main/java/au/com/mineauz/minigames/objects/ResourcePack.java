@@ -34,7 +34,7 @@ public final class ResourcePack implements ConfigurationSerializable {
      */
     private byte[] hash;
     private boolean valid = false;
-    private String description;
+    private final String description;
 
     /**
      * Instantiates a new Resource pack.

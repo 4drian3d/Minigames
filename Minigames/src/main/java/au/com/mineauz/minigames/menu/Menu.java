@@ -12,8 +12,8 @@ import java.util.*;
 
 public class Menu {
     private int rows = 2;
-    private ItemStack[] pageView;
-    private Map<Integer, MenuItem> pageMap = new HashMap<>();
+    private final ItemStack[] pageView;
+    private final Map<Integer, MenuItem> pageMap = new HashMap<>();
     private String name = "Menu";
     private boolean allowModify = false;
     private Menu previousPage = null;
@@ -214,7 +214,7 @@ public class Menu {
             viewer.setNoClose(false);
             viewer.setManualEntry(null);
             displayMenu(viewer);
-        }, (long) (time * 20));
+        }, time * 20L);
     }
 
     public void cancelReopenTimer() {

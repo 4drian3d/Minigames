@@ -39,7 +39,7 @@ public abstract class Flag<T> {
     }
 
     public Callback<T> getCallback() {
-        return new Callback<T>() {
+        return new Callback<>() {
 
             @Override
             public T getValue() {

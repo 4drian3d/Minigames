@@ -6,9 +6,7 @@ import au.com.mineauz.minigames.managers.MinigameManager;
 import au.com.mineauz.minigames.managers.MinigamePlayerManager;
 import au.com.mineauz.minigames.managers.PlaceHolderManager;
 import au.com.mineauz.minigames.managers.ResourcePackManager;
-import au.com.mineauz.minigames.minigame.modules.MinigameModule;
 import au.com.mineauz.minigames.objects.MinigamePlayer;
-import au.com.mineauz.minigames.objects.ModulePlaceHolderProvider;
 import au.com.mineauz.minigames.objects.ResourcePack;
 import com.google.common.io.Closeables;
 import com.google.common.util.concurrent.FutureCallback;
@@ -49,12 +47,8 @@ import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
-import java.lang.reflect.Member;
-import java.time.LocalDate;
 import java.util.*;
-import java.util.logging.Handler;
 import java.util.logging.Level;
-import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
@@ -85,6 +79,8 @@ public class Minigames extends JavaPlugin {
         startUpHandler = new StartUpLogHandler();
     }
 
+    //TODO: AEA
+    @SuppressWarnings("removal")
     protected Minigames(final JavaPluginLoader loader, final PluginDescriptionFile description, final File dataFolder, final File file) {
         super(loader, description, dataFolder, file);
         log = this.getLogger();
@@ -266,7 +262,7 @@ public class Minigames extends JavaPlugin {
             plugin = null;
             log().log(Level.SEVERE, "Failed to enable Minigames " + this.getDescription().getVersion() + ": " + e.getMessage());
             e.printStackTrace();
-            this.getPluginLoader().disablePlugin(this);
+            getServer().getPluginManager().disablePlugin(this);
         }
         log.removeHandler(startUpHandler);
     }
@@ -509,16 +505,13 @@ public class Minigames extends JavaPlugin {
         return null;
     }
 
-    private void loadLang() {
-    }
-
     public void queueStatSave(final StoredGameStats saveData, final boolean winner) {
         MinigameUtils.debugMessage("Scheduling SQL data save for " + saveData);
 
         final ListenableFuture<Long> winCountFuture = this.backend.loadSingleStat(saveData.getMinigame(), MinigameStats.Wins, StatValueField.Total, saveData.getPlayer().getUUID());
         this.backend.saveStats(saveData);
 
-        this.backend.addServerThreadCallback(winCountFuture, new FutureCallback<Long>() {
+        this.backend.addServerThreadCallback(winCountFuture, new FutureCallback<>() {
             @Override
             public void onFailure(final @NotNull Throwable t) {
             }

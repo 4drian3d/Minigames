@@ -6,7 +6,7 @@ import au.com.mineauz.minigames.objects.MinigamePlayer;
 
 public class RevertCheckpointEvent extends AbstractMinigameEvent {
 
-    private MinigamePlayer player = null;
+    private final MinigamePlayer player;
 
     public RevertCheckpointEvent(MinigamePlayer player) {
         super(null);

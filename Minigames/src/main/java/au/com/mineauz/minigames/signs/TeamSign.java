@@ -15,7 +15,7 @@ import org.bukkit.event.block.SignChangeEvent;
 
 public class TeamSign implements MinigameSign {
 
-    private Minigames plugin = Minigames.getPlugin();
+    private final Minigames plugin = Minigames.getPlugin();
 
     @Override
     public String getName() {

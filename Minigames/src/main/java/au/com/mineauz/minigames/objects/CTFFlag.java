@@ -12,15 +12,15 @@ import org.bukkit.entity.Player;
 
 public class CTFFlag {
 
-    private Location spawnLocation = null;
+    private Location spawnLocation;
     private Location currentLocation = null;
-    private BlockData data = null;
-    private BlockState spawnData = null;
+    private final BlockData data;
+    private final BlockState spawnData;
     private BlockState originalBlock = null;
-    private String[] signText = null;
+    private final String[] signText;
     private boolean atHome = true;
-    private Team team = null;
-    private int respawnTime = 60;
+    private Team team;
+    private final int respawnTime;
     private int taskID = -1;
     private Minigame minigame = null;
     private int cParticleID = -1;
@@ -188,7 +188,7 @@ public class CTFFlag {
                     pl.sendInfoMessage(MinigameUtils.getLang("minigame.flag.returnedNeutral"));
             }
             taskID = -1;
-        }, respawnTime * 20);
+        }, respawnTime * 20L);
     }
 
     public void startCarrierParticleEffect(final Player player) {

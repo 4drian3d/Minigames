@@ -62,48 +62,56 @@ public class WeatherTimeModule extends MinigameModule {
     @Override
     public void addEditMenuOptions(Menu menu) {
         Menu m = new Menu(6, "Time and Weather", menu.getViewer());
-        m.addItem(new MenuItemBoolean("Use Custom Time", Material.CLOCK, new Callback<Boolean>() {
+        m.addItem(new MenuItemBoolean("Use Custom Time", Material.CLOCK, new Callback<>() {
 
             @Override
             public Boolean getValue() {
                 return useCustomTime.getFlag();
-            }            @Override
+            }
+
+            @Override
             public void setValue(Boolean value) {
                 useCustomTime.setFlag(value);
             }
 
 
         }));
-        m.addItem(new MenuItemInteger("Time of Day", Material.CLOCK, new Callback<Integer>() {
+        m.addItem(new MenuItemInteger("Time of Day", Material.CLOCK, new Callback<>() {
 
             @Override
             public Integer getValue() {
                 return time.getFlag().intValue();
-            }            @Override
+            }
+
+            @Override
             public void setValue(Integer value) {
                 time.setFlag(value.longValue());
             }
 
 
         }, 0, 24000));
-        m.addItem(new MenuItemBoolean("Use Custom Weather", Material.WATER_BUCKET, new Callback<Boolean>() {
+        m.addItem(new MenuItemBoolean("Use Custom Weather", Material.WATER_BUCKET, new Callback<>() {
 
             @Override
             public Boolean getValue() {
                 return useCustomWeather.getFlag();
-            }            @Override
+            }
+
+            @Override
             public void setValue(Boolean value) {
                 useCustomWeather.setFlag(value);
             }
 
 
         }));
-        m.addItem(new MenuItemList("Weather Type", Material.WATER_BUCKET, new Callback<String>() {
+        m.addItem(new MenuItemList("Weather Type", Material.WATER_BUCKET, new Callback<>() {
 
             @Override
             public String getValue() {
                 return MinigameUtils.capitalize(weather.getFlag().toString());
-            }            @Override
+            }
+
+            @Override
             public void setValue(String value) {
                 weather.setFlag(WeatherType.valueOf(value.toUpperCase()));
             }

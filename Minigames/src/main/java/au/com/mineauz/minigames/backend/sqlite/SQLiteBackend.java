@@ -19,7 +19,6 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@SuppressWarnings("SyntaxError")
 public class SQLiteBackend extends Backend {
     private final Logger logger;
     private ConnectionPool pool;
@@ -29,9 +28,8 @@ public class SQLiteBackend extends Backend {
     private StatementKey insertPlayer;
     private StatementKey loadStatSettings;
     private StatementKey saveStatSettings;
-    private boolean debug;
-    private SQLiteStatLoader loader;
-    private SQLiteStatSaver saver;
+    private final SQLiteStatLoader loader;
+    private final SQLiteStatSaver saver;
     private File database;
 
 
@@ -54,7 +52,6 @@ public class SQLiteBackend extends Backend {
 
     @Override
     public boolean initialize(ConfigurationSection config, boolean debug) {
-        this.debug = debug;
 
         try {
             Class.forName("org.sqlite.JDBC");
@@ -68,9 +65,9 @@ public class SQLiteBackend extends Backend {
             Properties properties = new Properties();
             properties.put("username", "");
             properties.put("password", "");
-            if (debug) logger.info("Properties: " + properties.toString());
+            if (debug) logger.info("Properties: " + properties);
             pool = new ConnectionPool(url, properties);
-            if (debug) logger.info("Pool: " + pool.toString());
+            if (debug) logger.info("Pool: " + pool);
             createStatements();
 
             // Test the connection

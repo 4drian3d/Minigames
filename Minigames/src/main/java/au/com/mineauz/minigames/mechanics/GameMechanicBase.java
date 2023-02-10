@@ -18,8 +18,8 @@ import java.util.List;
 
 public abstract class GameMechanicBase implements Listener {
     public static Minigames plugin;
-    public MinigamePlayerManager pdata;
-    public MinigameManager mdata;
+    public final MinigamePlayerManager pdata;
+    public final MinigameManager mdata;
 
     public GameMechanicBase() {
         plugin = Minigames.getPlugin();

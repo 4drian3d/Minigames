@@ -3,7 +3,7 @@ package au.com.mineauz.minigames.commands;
 import au.com.mineauz.minigames.Minigames;
 import au.com.mineauz.minigames.minigame.Minigame;
 import com.google.common.base.Charsets;
-import org.apache.commons.lang.exception.ExceptionUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -65,29 +65,30 @@ public class DebugCommand implements ICommand {
     public boolean onCommand(CommandSender sender, Minigame minigame,
                              String label, String[] args) {
         if(args != null && args.length > 0) {
-            switch (args[0].toUpperCase()){
-                case "ON":
-                    if(Minigames.getPlugin().isDebugging()){
+            switch (args[0].toUpperCase()) {
+                case "ON" -> {
+                    if (Minigames.getPlugin().isDebugging()) {
                         sender.sendMessage(ChatColor.GRAY + "Debug mode already active.");
                     } else {
                         Minigames.getPlugin().toggleDebug();
                         sender.sendMessage(ChatColor.GRAY + "Debug mode active.");
                     }
-                    break;
-                case "OFF":
-                    if(!Minigames.getPlugin().isDebugging()){
+                }
+                case "OFF" -> {
+                    if (!Minigames.getPlugin().isDebugging()) {
                         sender.sendMessage(ChatColor.GRAY + "Debug mode already inactive.");
                     } else {
                         Minigames.getPlugin().toggleDebug();
                         sender.sendMessage(ChatColor.GRAY + "Debug mode inactive.");
                     }
-                    break;
-                case "PASTE":
+                }
+                case "PASTE" -> {
                     sender.sendMessage(ChatColor.GRAY + "Generating a paste.....");
-                    generatePaste(sender,minigame);
-                    break;
-                default:
+                    generatePaste(sender, minigame);
+                }
+                default -> {
                     return false;
+                }
             }
         } else {
             Minigames.getPlugin().toggleDebug();
@@ -115,9 +116,9 @@ public class DebugCommand implements ICommand {
 
     private String getFile(Path file) {
         try {
-            return new String(Files.readAllBytes(file), Charsets.UTF_8);
+            return Files.readString(file, Charsets.UTF_8);
         } catch (IOException e) {
-            return ExceptionUtils.getFullStackTrace(e);
+            return ExceptionUtils.getStackTrace(e);
         }
     }
 

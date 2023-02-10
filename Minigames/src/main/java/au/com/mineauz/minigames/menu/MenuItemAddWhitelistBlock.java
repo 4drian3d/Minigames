@@ -10,7 +10,7 @@ import java.util.List;
 
 public class MenuItemAddWhitelistBlock extends MenuItem {
 
-    private List<Material> whitelist;
+    private final List<Material> whitelist;
 
     public MenuItemAddWhitelistBlock(String name, List<Material> whitelist) {
         super(name, MenuUtility.getCreateMaterial());

@@ -15,16 +15,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MultiplayerTimer {
-    private static Minigames plugin = Minigames.getPlugin();
+    private static final Minigames plugin = Minigames.getPlugin();
     private int currentLobbyWaitTime;
-    private int oLobbyWaitTime;
+    private final int oLobbyWaitTime;
     private int startWaitTime;
-    private int oStartWaitTime;
-    private Minigame minigame;
-    private MinigamePlayerManager playerManager = plugin.getPlayerManager();
+    private final int oStartWaitTime;
+    private final Minigame minigame;
+    private final MinigamePlayerManager playerManager = plugin.getPlayerManager();
     private boolean paused = false;
     private int taskID = -1;
-    private List<Integer> timeMsg = new ArrayList<>();
+    private final List<Integer> timeMsg = new ArrayList<>();
 
     public MultiplayerTimer(Minigame mg) {
         minigame = mg;

@@ -1,6 +1,5 @@
 package au.com.mineauz.minigames.managers;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,12 +16,8 @@ import static org.junit.Assert.*;
 public class MessageManagerTest {
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         MessageManager.setLogger(Logger.getAnonymousLogger());
-    }
-
-    @After
-    public void tearDown() throws Exception {
     }
 
     @Test

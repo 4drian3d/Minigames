@@ -11,7 +11,7 @@ import org.bukkit.event.block.SignChangeEvent;
 
 public class SpectateSign implements MinigameSign {
 
-    private Minigames plugin = Minigames.getPlugin();
+    private final Minigames plugin = Minigames.getPlugin();
 
     @Override
     public String getName() {

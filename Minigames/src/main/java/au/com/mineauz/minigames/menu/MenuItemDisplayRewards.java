@@ -9,7 +9,7 @@ import au.com.mineauz.minigames.minigame.reward.Rewards;
 
 public class MenuItemDisplayRewards extends MenuItem {
 
-    private Rewards rewards;
+    private final Rewards rewards;
 
     public MenuItemDisplayRewards(String name, Material displayItem, Rewards rewards) {
         super(name, displayItem);

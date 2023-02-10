@@ -13,7 +13,6 @@ import com.google.common.collect.ImmutableMap;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.scoreboard.Scoreboard;
-import org.bukkit.scoreboard.ScoreboardManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -24,8 +23,8 @@ import java.util.Map;
 import static au.com.mineauz.minigames.menu.MenuUtility.getBackMaterial;
 
 public class TeamsModule extends MinigameModule {
-    private Map<TeamColor, Team> teams = new HashMap<>();
-    private TeamSetFlag teamsFlag;
+    private final Map<TeamColor, Team> teams = new HashMap<>();
+    private final TeamSetFlag teamsFlag;
     private StringFlag defaultWinner = new StringFlag(null, "defaultwinner");
 
     public TeamsModule(Minigame mgm) {
@@ -168,7 +167,7 @@ public class TeamsModule extends MinigameModule {
     }
 
     public Callback<String> getDefaultWinnerCallback() {
-        return new Callback<String>() {
+        return new Callback<>() {
 
             @Override
             public String getValue() {

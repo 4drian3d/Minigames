@@ -9,7 +9,7 @@ import java.util.List;
 
 public class MenuItemBoolean extends MenuItem {
 
-    private Callback<Boolean> toggle = null;
+    private final Callback<Boolean> toggle;
 
     public MenuItemBoolean(String name, Material displayItem, Callback<Boolean> toggle) {
         super(name, displayItem);
@@ -24,13 +24,10 @@ public class MenuItemBoolean extends MenuItem {
     }
 
     public void updateDescription() {
-        List<String> description = null;
-        String col = "";
-        if (toggle.getValue()) {
-            col = ChatColor.GREEN.toString() + "true";
-        } else {
-            col = ChatColor.RED.toString() + "false";
-        }
+        List<String> description;
+        final String col = toggle.getValue()
+                ? ChatColor.GREEN + "true"
+                : ChatColor.RED + "false";
         if (getDescription() != null) {
             description = getDescription();
             String desc = ChatColor.stripColor(getDescription().get(0));

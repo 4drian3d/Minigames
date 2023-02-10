@@ -31,6 +31,7 @@ import org.bukkit.potion.PotionEffect;
 import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 
 /**
@@ -61,7 +62,7 @@ public class MinigamePlayerManager {
         JoinMinigameEvent event = new JoinMinigameEvent(player, minigame);
         Bukkit.getServer().getPluginManager().callEvent(event);
         if (event.isCancelled()) {
-            Minigames.log.info("Start Event was cancelled..: " + event.toString());
+            Minigames.log.info("Start Event was cancelled..: " + event);
             return;
         }
         if (!mgManager.minigameStartStateCheck(minigame, player)) return;
@@ -425,9 +426,7 @@ public class MinigamePlayerManager {
     public void quitMinigame(MinigamePlayer player, boolean forced) {
         Minigame minigame = player.getMinigame();
 
-        boolean isWinner = false;
-        if (GameOverModule.getMinigameModule(minigame).getWinners().contains(player))
-            isWinner = true;
+        final boolean isWinner = GameOverModule.getMinigameModule(minigame).getWinners().contains(player);
 
         QuitMinigameEvent event = new QuitMinigameEvent(player, minigame, forced, isWinner);
         Bukkit.getServer().getPluginManager().callEvent(event);
@@ -649,7 +648,7 @@ public class MinigamePlayerManager {
                     if (!plys.isEmpty()) {
                         bets = minigame.getMpBets().claimMoneyBets() / (double) plys.size();
                         BigDecimal roundBets = new BigDecimal(bets);
-                        roundBets = roundBets.setScale(2, BigDecimal.ROUND_HALF_UP);
+                        roundBets = roundBets.setScale(2, RoundingMode.HALF_UP);
                         bets = roundBets.doubleValue();
                     }
                     minigame.setMpBets(null);
@@ -951,7 +950,7 @@ public class MinigamePlayerManager {
         setDeniedCommands(plugin.getConfig().getStringList("disabledCommands"));
     }
 
-    private class PlayerLocation {
+    private static class PlayerLocation {
         final Location location;
         final Integer position;
 

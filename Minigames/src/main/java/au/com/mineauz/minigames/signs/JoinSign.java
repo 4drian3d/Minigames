@@ -13,7 +13,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class JoinSign implements MinigameSign {
 
-    private static Minigames plugin = Minigames.getPlugin();
+    private static final Minigames plugin = Minigames.getPlugin();
 
     @Override
     public String getName() {

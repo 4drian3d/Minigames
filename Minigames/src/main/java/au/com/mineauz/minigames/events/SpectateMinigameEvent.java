@@ -6,7 +6,7 @@ import au.com.mineauz.minigames.objects.MinigamePlayer;
 import au.com.mineauz.minigames.minigame.Minigame;
 
 public class SpectateMinigameEvent extends AbstractMinigameEvent {
-    private MinigamePlayer player = null;
+    private final MinigamePlayer player;
 
     public SpectateMinigameEvent(MinigamePlayer player, Minigame minigame) {
         super(minigame);

@@ -35,7 +35,7 @@ public abstract class MinigameTypeBase implements Listener {
      *
      * @param player the player
      * @param mgm    the Game
-     * @returns True if they join1
+     * @return True if they join1
      */
     public abstract boolean joinMinigame(MinigamePlayer player, Minigame mgm);
 

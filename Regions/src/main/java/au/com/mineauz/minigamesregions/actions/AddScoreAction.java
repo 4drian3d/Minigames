@@ -18,7 +18,7 @@ import au.com.mineauz.minigamesregions.Region;
 
 public class AddScoreAction extends ScoreAction {
     
-    private IntegerFlag amount = new IntegerFlag(1, "amount");
+    private final IntegerFlag amount = new IntegerFlag(1, "amount");
 
     @Override
     public String getName() {
